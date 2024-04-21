@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="416.0" prefWidth="325.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="14.0" layoutY="14.0" text="Règles Tic Tac Toe">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="17.0" layoutY="67.0" prefHeight="354.0" prefWidth="291.0" text="Le jeu de Tic Tac Toe, également connu sous le nom de Morpion, est un jeu de stratégie simple joué entre deux joueurs. Le jeu se joue sur une grille de 3x3 cases. Le premier joueur utilise le symbole 'X' et le deuxième joueur utilise le symbole 'O'. Les joueurs placent leurs symboles sur la grille à tour de rôle. Le but du jeu est d'aligner trois de ses propres symboles, soit horizontalement, soit verticalement, soit en diagonale.  Dans cette application, le joueur deux peut être un ordinateur. Pour cela, il suffit de cocher la case &quot;Ordinateur&quot; dans l'interface de configuration de la partie. Si cette case est cochée, le joueur deux sera joué par l'ordinateur et le texte du champ correspondant sera automatiquement mis à jour pour indiquer &quot;Ordinateur&quot;. Si la case n'est pas cochée, le joueur deux sera un humain et le champ de texte sera vide, permettant à l'utilisateur d'entrer le nom du deuxième joueur." wrapText="true" />
+   </children>
+</Pane>
