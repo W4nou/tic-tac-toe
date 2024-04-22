@@ -14,24 +14,24 @@
     <children>
         <TextField fx:id="p1PseudoTextField" disable="true" layoutX="15.0" layoutY="37.0" prefHeight="25.0" prefWidth="214.0" promptText="Pseudo" text="Joueur 1" />
         <ComboBox fx:id="p1ShapeComboBox" layoutX="14.0" layoutY="69.0" prefWidth="150.0" promptText="Forme" />
-        <Label layoutX="15.0" layoutY="14.0" text="Joueur 1 :" />
-        <Button fx:id="confirmerButton" layoutX="245.0" layoutY="289.0" mnemonicParsing="false" onAction="#onConfirmerButtonClicked" text="Confirmer" />
-        <TextField fx:id="p2PseudoTextField" disable="true" layoutX="15.0" layoutY="134.0" prefHeight="25.0" prefWidth="214.0" promptText="Pseudo" text="Joueur 2" />
-        <ComboBox fx:id="p2ShapeComboBox" layoutX="14.0" layoutY="166.0" prefWidth="150.0" promptText="Forme" />
-        <Label layoutX="15.0" layoutY="111.0" text="Joueur 2 :" />
       <ColorPicker fx:id="p1ColorPicker" layoutX="179.0" layoutY="69.0" prefHeight="25.0" prefWidth="51.0">
          <value>
             <Color red="0.171579509973526" blue="1.0" />
          </value>
       </ColorPicker>
+        <Label layoutX="15.0" layoutY="14.0" text="Joueur 1 :" />
+        <TextField fx:id="p2PseudoTextField" disable="true" layoutX="15.0" layoutY="134.0" prefHeight="25.0" prefWidth="214.0" promptText="Pseudo" text="Joueur 2" />
+        <ComboBox fx:id="p2ShapeComboBox" layoutX="14.0" layoutY="166.0" prefWidth="150.0" promptText="Forme" />
       <ColorPicker fx:id="p2ColorPicker" layoutX="177.0" layoutY="166.0" prefHeight="25.0" prefWidth="51.0">
          <value>
             <Color red="1.0" />
          </value>
       </ColorPicker>
+        <Label layoutX="15.0" layoutY="111.0" text="Joueur 2 :" />
       <Slider fx:id="boardSizeSlider" blockIncrement="2.0" layoutX="16.0" layoutY="236.0" majorTickUnit="2.0" max="15.0" min="3.0" minorTickCount="1" prefHeight="37.0" prefWidth="297.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0" />
       <Label layoutX="14.0" layoutY="208.0" text="Taille du plateau :" />
       <ImageView fx:id="p1ImageView" fitHeight="80.0" fitWidth="80.0" layoutX="234.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="p2ImageView" fitHeight="80.0" fitWidth="80.0" layoutX="234.0" layoutY="119.0" pickOnBounds="true" preserveRatio="true" />
+        <Button fx:id="confirmerButton" layoutX="240.0" layoutY="286.0" mnemonicParsing="false" onAction="#onConfirmerButtonClicked" text="Confirmer" />
     </children>
 </Pane>

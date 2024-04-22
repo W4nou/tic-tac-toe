@@ -1,6 +1,9 @@
 package ihm_project.tictactoe;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.effect.Blend;
@@ -9,6 +12,7 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.ColorInput;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -58,6 +62,16 @@ public class ConfigurationController {
         return new Blend(BlendMode.SRC_ATOP, null, colorInput);
     }
 
+    public void updateShape(String shape, ImageView imageView) {
+        File previewFile = new File("src/main/resources/ihm_project/tictactoe/shapes/" + shape);
+        Image previewImage = new Image(previewFile.toURI().toString());
+        imageView.setImage(previewImage);
+    }
+
+    public void updateShapeColor(ImageView imageView, Blend effect) {
+        imageView.setEffect(effect);
+    }
+
     @FXML
     public void initialize() {
         File[] shapes = folderContent("src/main/resources/ihm_project/tictactoe/shapes");
@@ -68,15 +82,21 @@ public class ConfigurationController {
         p1ShapeComboBox.setValue("emptyCircle.png");
         p2ShapeComboBox.setValue("fullCross.png");
 
-        File p1previewFile = new File("src/main/resources/ihm_project/tictactoe/shapes/"+p1ShapeComboBox.getValue());
-        Image p1PreviewImage = new Image(p1previewFile.toURI().toString());
-        p1ImageView.setImage(p1PreviewImage);
-        p1ImageView.setEffect(colorToBlend(p1ColorPicker.getValue()));
+        updateShape(p1ShapeComboBox.getValue(), p1ImageView);
+        updateShapeColor(p1ImageView, colorToBlend(p1ColorPicker.getValue()));
 
-        File p2previewFile = new File("src/main/resources/ihm_project/tictactoe/shapes/"+p2ShapeComboBox.getValue());
-        Image p2PreviewImage = new Image(p2previewFile.toURI().toString());
-        p2ImageView.setImage(p2PreviewImage);
-        p2ImageView.setEffect(colorToBlend(p2ColorPicker.getValue()));
+        updateShape(p2ShapeComboBox.getValue(), p2ImageView);
+        updateShapeColor(p2ImageView, colorToBlend(p2ColorPicker.getValue()));
+
+        // EventListener for shape and color selection
+
+        p1ShapeComboBox.setOnAction(event -> updateShape(p1ShapeComboBox.getValue(), p1ImageView));
+        p2ShapeComboBox.setOnAction(event -> updateShape(p2ShapeComboBox.getValue(), p2ImageView));
+
+        // use of Platform.runLater because the without it, It was not updating in real time
+
+        p1ColorPicker.setOnAction(event -> Platform.runLater(() -> updateShapeColor(p1ImageView, colorToBlend(p1ColorPicker.getValue()))));
+        p2ColorPicker.setOnAction(event -> Platform.runLater(() -> updateShapeColor(p2ImageView, colorToBlend(p2ColorPicker.getValue()))));
     }
 
     public void reloadPseudo(String p1, String p2) {
@@ -92,7 +112,7 @@ public class ConfigurationController {
         Button btn = (Button) event.getSource();
         Stage stage = (Stage) btn.getScene().getWindow();
 
-        stage.hide();
+        stage.close();
     }
 
     public Player getP1() {
