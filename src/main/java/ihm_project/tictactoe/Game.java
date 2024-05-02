@@ -9,7 +9,10 @@ public class Game {
     private final int size;
     private boolean isP1Turn;
 
-    public Game(Player p1, Player p2, int size) {
+    public Game(Player p1, Player p2, int size) throws Exception {
+        if (p1 == null || p2 == null ){
+            throw new Exception("p1 or p2 is null");
+        }
         this.p1 = p1;
         this.p2 = p2;
         this.size = size;
@@ -17,7 +20,7 @@ public class Game {
         isP1Turn = true;
     }
 
-    public Game(Player p1, Player p2) {
+    public Game(Player p1, Player p2) throws Exception {
         this(p1, p2, SIZE_DEFAULT);
     }
 
@@ -97,12 +100,17 @@ public class Game {
         return board[column][row] == null;
     }
 
-    public boolean played(int row, int column) {
-        Player p = isP1Turn ? p1 : p2;
-        if (canPlay(row, column)) {
-            board[column][row] = p;
-            return true;
+    public Player played(int row, int column) {
+        if (!canPlay(row, column)) {
+            return null;
         }
-        return false;
+        Player player = whoseTurn();
+        board[column][row] = player;
+        isP1Turn = !isP1Turn;
+        return player;
+    }
+
+    public Player whoseTurn() {
+        return isP1Turn ? p1 : p2;
     }
 }

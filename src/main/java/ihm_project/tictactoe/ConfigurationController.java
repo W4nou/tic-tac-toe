@@ -97,6 +97,10 @@ public class ConfigurationController {
 
         p1ColorPicker.setOnAction(event -> Platform.runLater(() -> updateShapeColor(p1ImageView, colorToBlend(p1ColorPicker.getValue()))));
         p2ColorPicker.setOnAction(event -> Platform.runLater(() -> updateShapeColor(p2ImageView, colorToBlend(p2ColorPicker.getValue()))));
+
+        p1 = new Player(p1ImageView.getImage(), p1ImageView.getEffect(), p1PseudoTextField.getText());
+        p2 = new Player(p2ImageView.getImage(), p2ImageView.getEffect(), p2PseudoTextField.getText());
+
     }
 
     public void reloadPseudo(String p1, String p2) {
@@ -106,8 +110,8 @@ public class ConfigurationController {
 
     @FXML
     void onConfirmerButtonClicked(ActionEvent event) {
-        this.p1 = new Player(p1ColorPicker.getValue(), "chemin/shape.png", p1PseudoTextField.getText());
-        this.p2 = new Player(p2ColorPicker.getValue(), "chemin/shape.png", p2PseudoTextField.getText());
+        p1 = new Player(p1ImageView.getImage(), p1ImageView.getEffect(), p1PseudoTextField.getText());
+        p2 = new Player(p2ImageView.getImage(), p2ImageView.getEffect(), p2PseudoTextField.getText());
 
         Button btn = (Button) event.getSource();
         Stage stage = (Stage) btn.getScene().getWindow();

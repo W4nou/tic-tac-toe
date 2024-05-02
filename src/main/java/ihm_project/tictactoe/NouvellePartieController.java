@@ -68,21 +68,24 @@ public class NouvellePartieController extends TicTacToeController {
 
     @FXML
     void onConfigurationPartieButtonClicked() {
-        configurationController.reloadPseudo(p1TextField.getText(),p2TextField.getText());
+        configurationController.reloadPseudo(p1TextField.getText(), p2TextField.getText());
         configurationPartieScene.showAndWait();
-
-        p1 = configurationController.getP1();
-        p2 = configurationController.getP2();
-        boardSize = configurationController.getBoardSize();
     }
 
     @FXML
-    void onNouvellePartieButtonClicked(ActionEvent event) {
+    void onNouvellePartieButtonClicked(ActionEvent event) throws Exception {
         Button btn = (Button) event.getSource();
         Stage stage = (Stage) btn.getScene().getWindow();
         stage.hide();
 
-        gameController.setGame(new Game(p1,p2,boardSize));
+        configurationController.reloadPseudo(p1TextField.getText(), p2TextField.getText());
+
+        p1 = configurationController.getP1();
+        p2 = configurationController.getP2();
+
+        boardSize = configurationController.getBoardSize();
+
+        gameController.setGame(new Game(p1, p2, boardSize));
 
         gameScene.show();
 

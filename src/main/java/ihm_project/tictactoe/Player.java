@@ -1,22 +1,25 @@
 package ihm_project.tictactoe;
 
+import javafx.scene.effect.Effect;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 public class Player {
 
-    private final Color color;
-    private final String shape;
+    private final Image shape;
+    private final Effect color;
     private String name;
     private boolean bot;
 
-    public Player(Color color, String shape, String name) {
-        this.color = color;
+    public Player(Image shape, Effect color, String name) {
         this.shape = shape;
+        this.color = color;
         this.name = name;
         this.bot = false;
     }
 
-    public void setBot(boolean isbot){
+    public void setBot(boolean isbot) {
         bot = isbot;
     }
 
@@ -24,12 +27,12 @@ public class Player {
         return bot;
     }
 
-    public Color getColor() {
-        return color;
+    public Image getShape() {
+        return shape;
     }
 
-    public String getShape() {
-        return shape;
+    public Effect getColor() {
+        return color;
     }
 
     public String getName() {
