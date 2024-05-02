@@ -44,7 +44,7 @@ public class TicTacToeApplication extends Application {
         Scene reglesScene = new Scene(fxmlRegleLoader.load());
         regles.setScene(reglesScene);
 
-        nouvellePartieController.reglesScene = regles;
+        TicTacToeController.reglesScene = regles;
 
 
 //        Création de la fenêtre à Propos
@@ -56,9 +56,22 @@ public class TicTacToeApplication extends Application {
         Scene aProposScene = new Scene(fxmlAProposLoader.load());
         aPropos.setScene(aProposScene);
 
-        nouvellePartieController.aProposScene = aPropos;
+        TicTacToeController.aProposScene = aPropos;
 
 
+//        Création de la fenêtre à game
+
+        Stage game = new Stage();
+        game.initOwner(stage);
+        game.setTitle("TicTacToe : Partie");
+        FXMLLoader fxmlGameLoader = new FXMLLoader(TicTacToeApplication.class.getResource("game.fxml"));
+        Scene gameScene = new Scene(fxmlGameLoader.load());
+        game.setScene(gameScene);
+
+        nouvellePartieController.gameScene = game;
+
+        GameController gameController = fxmlGameLoader.getController();
+        nouvellePartieController.setGameController(gameController);
 
         stage.show();
     }

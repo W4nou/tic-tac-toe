@@ -5,10 +5,10 @@ import javafx.stage.Stage;
 
 public class TicTacToeController {
     @FXML
-    public Stage reglesScene;
+    public static Stage reglesScene;
 
     @FXML
-    public Stage aProposScene;
+    public static Stage aProposScene;
 
     @FXML
     void onReglesMenuButtonClicked() {

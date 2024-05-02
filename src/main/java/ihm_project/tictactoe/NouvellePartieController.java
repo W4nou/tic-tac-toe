@@ -1,7 +1,9 @@
 package ihm_project.tictactoe;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -9,6 +11,7 @@ import javafx.stage.Stage;
 public class NouvellePartieController extends TicTacToeController {
 
     private ConfigurationController configurationController;
+    private GameController gameController;
 
     @FXML
     private MenuItem aProposMenuButton;
@@ -40,6 +43,9 @@ public class NouvellePartieController extends TicTacToeController {
     @FXML
     public Stage configurationPartieScene;
 
+    @FXML
+    public Stage gameScene;
+
     private Player p1;
     private Player p2;
 
@@ -70,12 +76,23 @@ public class NouvellePartieController extends TicTacToeController {
         boardSize = configurationController.getBoardSize();
     }
 
+    @FXML
+    void onNouvellePartieButtonClicked(ActionEvent event) {
+        Button btn = (Button) event.getSource();
+        Stage stage = (Stage) btn.getScene().getWindow();
+        stage.hide();
+
+        gameController.setGame(new Game(p1,p2,boardSize));
+
+        gameScene.show();
+
+    }
+
     public void setConfigurationController(ConfigurationController configurationController) {
         this.configurationController = configurationController;
     }
 
-    @FXML
-    void onNouvellePartieClicked() {
-        //TODO
+    public void setGameController(GameController gameController) {
+        this.gameController = gameController;
     }
 }

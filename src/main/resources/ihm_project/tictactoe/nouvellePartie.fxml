@@ -11,7 +11,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="225.0" prefWidth="325.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm_project.tictactoe.NouvellePartieController">
    <children>
-      <Button fx:id="nouvellePartieButton" layoutX="214.0" layoutY="186.0" mnemonicParsing="false" onAction="#onNouvellePartieClicked" text="Nouvelle Partie" />
+      <Button fx:id="nouvellePartieButton" layoutX="214.0" layoutY="186.0" mnemonicParsing="false" onAction="#onNouvellePartieButtonClicked" text="Nouvelle Partie" />
       <Button fx:id="configPartieButton" layoutX="14.0" layoutY="186.0" mnemonicParsing="false" onAction="#onConfigurationPartieButtonClicked" text="Configuration Partie" />
       <MenuBar prefHeight="25.0" prefWidth="325.0">
         <menus>

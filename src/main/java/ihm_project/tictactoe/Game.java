@@ -7,12 +7,14 @@ public class Game {
     private final Player p2;
     private Player[][] board;
     private final int size;
+    private boolean isP1Turn;
 
     public Game(Player p1, Player p2, int size) {
         this.p1 = p1;
         this.p2 = p2;
         this.size = size;
         board = new Player[this.size][this.size];
+        isP1Turn = true;
     }
 
     public Game(Player p1, Player p2) {
@@ -95,7 +97,8 @@ public class Game {
         return board[column][row] == null;
     }
 
-    public boolean Played(Player p, int row, int column) {
+    public boolean played(int row, int column) {
+        Player p = isP1Turn ? p1 : p2;
         if (canPlay(row, column)) {
             board[column][row] = p;
             return true;
