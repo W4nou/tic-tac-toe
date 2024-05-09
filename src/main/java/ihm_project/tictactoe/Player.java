@@ -2,8 +2,6 @@ package ihm_project.tictactoe;
 
 import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 
 public class Player {
 
@@ -19,8 +17,8 @@ public class Player {
         this.bot = false;
     }
 
-    public void setBot(boolean isbot) {
-        bot = isbot;
+    public void setBot(boolean isBot) {
+        bot = isBot;
     }
 
     public boolean isBot() {

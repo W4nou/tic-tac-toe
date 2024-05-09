@@ -26,23 +26,23 @@ public class Game {
 
     public Player winner() {
         for (int column = 0; column < size; column++) {
-            Player winner = columnLine(column);
+            Player winner = checkColumnLine(column);
             if (winner != null) {
                 return winner;
             }
         }
 
         for (int row = 0; row < size; row++) {
-            Player winner = rowLine(row);
+            Player winner = checkRowLine(row);
             if (winner != null) {
                 return winner;
             }
         }
 
-        return diagonalLine();
+        return checkDiagonalLine();
     }
 
-    private Player rowLine(int row) {
+    private Player checkRowLine(int row) {
         Player previousCell = board[0][row];
         Player actualCell;
 
@@ -56,7 +56,7 @@ public class Game {
         return previousCell;
     }
 
-    private Player columnLine(int column) {
+    private Player checkColumnLine(int column) {
         Player previousCell = board[column][0];
         Player actualCell;
 
@@ -70,7 +70,7 @@ public class Game {
         return previousCell;
     }
 
-    private Player diagonalLine() {
+    private Player checkDiagonalLine() {
         Player previousCell = board[0][0];
         Player actualCell = null;
 
@@ -112,5 +112,9 @@ public class Game {
 
     public Player whoseTurn() {
         return isP1Turn ? p1 : p2;
+    }
+
+    public int getSize() {
+        return size;
     }
 }
