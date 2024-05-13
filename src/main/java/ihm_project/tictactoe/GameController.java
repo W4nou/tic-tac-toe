@@ -93,9 +93,10 @@ public class GameController extends TicTacToeController {
         imageView.setImage(player.getShape());
         imageView.setEffect(player.getColor());
 
-        // -4 is two time the padding value set for the buttons in the CSS file
-        imageView.setFitHeight(clickedButton.getPrefHeight()-4);
-        imageView.setFitWidth(clickedButton.getPrefWidth()-4);
+        // -6 is an arbitrary value inferior to two times the padding,
+        // it seems to fix an issue with the columns and rows adjusting when icons are added
+        imageView.setFitHeight(clickedButton.getPrefHeight()-6);
+        imageView.setFitWidth(clickedButton.getPrefWidth()-6);
 
         clickedButton.setGraphic(imageView);
         clickedButton.setDisable(true);

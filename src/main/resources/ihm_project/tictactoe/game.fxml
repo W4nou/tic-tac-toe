@@ -12,7 +12,7 @@
          <menus>
             <Menu mnemonicParsing="false" text="Partie">
                <items>
-                  <MenuItem fx:id="nouvellePartieMenuButton" mnemonicParsing="false" text="Nouvelle Partie" />
+                  <MenuItem fx:id="nouvellePartieMenuButton" mnemonicParsing="false" onAction="#onNewGameButtonClicked" text="Nouvelle Partie" />
                   <MenuItem fx:id="recommencerMenuButton" mnemonicParsing="false" text="Recommencer" />
                   <MenuItem fx:id="nouvellePartieMenuButton1" mnemonicParsing="false" text="Reprendre une Partie" />
                </items>

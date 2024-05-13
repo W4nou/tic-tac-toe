@@ -19,6 +19,8 @@ public class TicTacToeApplication extends Application {
         stage.setScene(nouvellePartie);
         NouvellePartieController nouvellePartieController = fxmlLoader.getController();
 
+        TicTacToeController.nouvellePartie = (Stage) nouvellePartie.getWindow();
+
 
 //        Création de la fenêtre de configuration de la partie
 

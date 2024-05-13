@@ -2,6 +2,7 @@ package ihm_project.tictactoe;
 
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
+import javafx.scene.* ;
 
 public class TicTacToeController {
     @FXML
@@ -9,6 +10,9 @@ public class TicTacToeController {
 
     @FXML
     public static Stage aProposScene;
+
+    @FXML
+    public static Stage nouvellePartie;
 
     @FXML
     void onReglesMenuButtonClicked() {
@@ -19,4 +23,9 @@ public class TicTacToeController {
     void onAProposMenuButtonClicked() {
         aProposScene.show();
     }
+
+    @FXML
+    void onNewGameButtonClicked() {
+
+        nouvellePartie.show();}
 }
