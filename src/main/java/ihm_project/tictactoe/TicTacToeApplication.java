@@ -11,7 +11,7 @@ import java.io.IOException;
 public class TicTacToeApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-//        Création de la fenêtre nouvelle partie
+//        Creation of the nouvellePartie window
 
         FXMLLoader fxmlLoader = new FXMLLoader(TicTacToeApplication.class.getResource("nouvellePartie.fxml"));
         Scene nouvellePartie = new Scene(fxmlLoader.load());
@@ -22,7 +22,7 @@ public class TicTacToeApplication extends Application {
         TicTacToeController.nouvellePartie = (Stage) nouvellePartie.getWindow();
 
 
-//        Création de la fenêtre de configuration de la partie
+//        Creation of the configurationPartie window
 
         Stage configurationPartie = new Stage();
         configurationPartie.initOwner(stage);
@@ -37,7 +37,7 @@ public class TicTacToeApplication extends Application {
         nouvellePartieController.configurationPartieScene = configurationPartie;
 
 
-//        Création de la fenêtre à Règles
+//        Creation of the règles window
 
         Stage regles = new Stage(StageStyle.UTILITY);
         regles.initOwner(stage);
@@ -49,7 +49,7 @@ public class TicTacToeApplication extends Application {
         TicTacToeController.reglesScene = regles;
 
 
-//        Création de la fenêtre à Propos
+//        Creation of the à Propos window
 
         Stage aPropos = new Stage();
         aPropos.initOwner(stage);
@@ -61,7 +61,7 @@ public class TicTacToeApplication extends Application {
         TicTacToeController.aProposScene = aPropos;
 
 
-//        Création de la fenêtre à game
+//        Creation of the game window
 
         Stage game = new Stage();
         game.initOwner(stage);
@@ -77,6 +77,19 @@ public class TicTacToeApplication extends Application {
 
         TicTacToeController.gameController = gameController;
         TicTacToeController.game = game;
+
+//        Creation of the endGame window
+
+        Stage endGame = new Stage();
+        endGame.initOwner(stage);
+        endGame.setTitle("TicTacToe : Fin de partie");
+        FXMLLoader fxmlEndGameLoader = new FXMLLoader(TicTacToeApplication.class.getResource("endGame.fxml"));
+        Scene endGameScene = new Scene(fxmlEndGameLoader.load());
+        endGame.setScene(endGameScene);
+
+        EndGameController endGameController = fxmlEndGameLoader.getController();
+        gameController.setEndGameController(endGameController);
+        endGameController.setEndGameStage(endGame);
 
         stage.show();
     }

@@ -21,17 +21,22 @@ public class TicTacToeController {
     public static GameController gameController;
 
     @FXML
-    void onReglesMenuButtonClicked() {
+    public void onReglesMenuButtonClicked() {
         reglesScene.show();
     }
 
     @FXML
-    void onAProposMenuButtonClicked() {
+    public void onAProposMenuButtonClicked() {
         aProposScene.show();
     }
 
     @FXML
-    void onNewGameButtonClicked() {
+    public void onRetryButtonClicked() {
+        // TODO
+    }
+
+    @FXML
+    public void onNewGameButtonClicked() {
         nouvellePartie.show();
         game.hide();
         gameController.reset();

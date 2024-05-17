@@ -18,6 +18,9 @@ public class GameController extends TicTacToeController {
     @FXML
     private Label gameStatusLabel;
 
+    @FXML
+    private EndGameController endGameController;
+
     private Game game;
 
     public void setGame(Game game) {
@@ -89,7 +92,7 @@ public class GameController extends TicTacToeController {
             GridPane boardGridPane = (GridPane) boardAnchorPane.getChildren().getFirst();
             disableAllButtons(boardGridPane);
 
-            // TODO end the game
+            endGameController.displayWinner(winner.getName());
         }
     }
 
@@ -121,5 +124,9 @@ public class GameController extends TicTacToeController {
         GridPane boardGridPane = (GridPane) boardAnchorPane.getChildren().getFirst();
         boardGridPane.getChildren().clear();
         boardAnchorPane.getChildren().remove(boardGridPane);
+    }
+
+    public void setEndGameController(EndGameController endGameController){
+        this.endGameController = endGameController;
     }
 }
