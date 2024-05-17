@@ -2,31 +2,25 @@ package ihm_project.tictactoe;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.effect.Blend;
 import javafx.scene.effect.BlendMode;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.ColorInput;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.Objects;
 
 public class ConfigurationController {
-    private Player p1;
-    private Player p2;
+    private static final String P1_NAME_DEFAULT = "Joueur 1";
+    private static final String P2_NAME_DEFAULT = "Joueur 2";
 
     @FXML
     private TextField p2PseudoTextField;
-
-    @FXML
-    private Button confirmerButton;
 
     @FXML
     private ColorPicker p1ColorPicker;
@@ -51,6 +45,9 @@ public class ConfigurationController {
 
     @FXML
     private ImageView p2ImageView;
+
+    private Player p1;
+    private Player p2;
 
     public File[] folderContent(String path) {
         File shapesFolder = new File(path);
@@ -93,7 +90,7 @@ public class ConfigurationController {
         p1ShapeComboBox.setOnAction(event -> updateShape(p1ShapeComboBox.getValue(), p1ImageView));
         p2ShapeComboBox.setOnAction(event -> updateShape(p2ShapeComboBox.getValue(), p2ImageView));
 
-        // use of Platform.runLater because the without it, It was not updating in real time
+        // use of Platform.runLater because without it, It was not updating in real time
 
         p1ColorPicker.setOnAction(event -> Platform.runLater(() -> updateShapeColor(p1ImageView, colorToBlend(p1ColorPicker.getValue()))));
         p2ColorPicker.setOnAction(event -> Platform.runLater(() -> updateShapeColor(p2ImageView, colorToBlend(p2ColorPicker.getValue()))));
@@ -103,9 +100,9 @@ public class ConfigurationController {
 
     }
 
-    public void reloadPseudo(String p1, String p2) {
-        p1PseudoTextField.setText(p1);
-        p2PseudoTextField.setText(p2);
+    public void reloadPseudo(String p1Name, String p2Name) {
+        p1PseudoTextField.setText(Objects.equals(p1Name, "") ? P1_NAME_DEFAULT : p1Name);
+        p2PseudoTextField.setText(Objects.equals(p2Name, "") ? P2_NAME_DEFAULT : p2Name);
     }
 
     @FXML

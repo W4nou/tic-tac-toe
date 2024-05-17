@@ -3,21 +3,11 @@ package ihm_project.tictactoe;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class NouvellePartieController extends TicTacToeController {
-
-    private ConfigurationController configurationController;
-    private GameController gameController;
-
-    @FXML
-    private MenuItem aProposMenuButton;
-
-    @FXML
-    private Button configPartieButton;
 
     @FXML
     private TextField p1TextField;
@@ -26,25 +16,16 @@ public class NouvellePartieController extends TicTacToeController {
     private TextField p2TextField;
 
     @FXML
-    private Button nouvellePartieButton;
-
-    @FXML
-    private MenuItem nouvellePartieMenuButton;
-
-    @FXML
     private CheckBox ordinateurCheckBox;
-
-    @FXML
-    private MenuItem recommencerMenuButton;
-
-    @FXML
-    private MenuItem reglesMenuButton;
 
     @FXML
     public Stage configurationPartieScene;
 
     @FXML
     public Stage gameScene;
+
+    private ConfigurationController configurationController;
+    private GameController gameController;
 
     private Player p1;
     private Player p2;
@@ -69,7 +50,7 @@ public class NouvellePartieController extends TicTacToeController {
     @FXML
     void onConfigurationPartieButtonClicked() {
         configurationController.reloadPseudo(p1TextField.getText(), p2TextField.getText());
-        configurationPartieScene.showAndWait();
+        configurationPartieScene.show();
     }
 
     @FXML

@@ -3,16 +3,14 @@ package ihm_project.tictactoe;
 public class Game {
     private static final int SIZE_DEFAULT = 3;
 
+
     private final Player p1;
     private final Player p2;
     private Player[][] board;
     private final int size;
     private boolean isP1Turn;
 
-    public Game(Player p1, Player p2, int size) throws Exception {
-        if (p1 == null || p2 == null ){
-            throw new Exception("p1 or p2 is null");
-        }
+    public Game(Player p1, Player p2, int size) {
         this.p1 = p1;
         this.p2 = p2;
         this.size = size;
@@ -20,7 +18,7 @@ public class Game {
         isP1Turn = true;
     }
 
-    public Game(Player p1, Player p2) throws Exception {
+    public Game(Player p1, Player p2) {
         this(p1, p2, SIZE_DEFAULT);
     }
 
