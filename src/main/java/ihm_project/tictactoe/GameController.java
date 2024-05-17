@@ -2,6 +2,7 @@ package ihm_project.tictactoe;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -84,7 +85,21 @@ public class GameController extends TicTacToeController {
         Player winner = game.winner();
         if (winner != null) {
             gameStatusLabel.setText(winner.getName() + " \u00E0 gagn\u00E9\n");
+
+            GridPane boardGridPane = (GridPane) boardAnchorPane.getChildren().getFirst();
+            disableAllButtons(boardGridPane);
+
             // TODO end the game
+        }
+    }
+
+    public void disableAllButtons(Pane root) {
+        for (Node node : root.getChildrenUnmodifiable()) {
+            if (node instanceof Button) {
+                node.setDisable(true);
+            } else if (node instanceof Pane) {
+                disableAllButtons((Pane) node);
+            }
         }
     }
 
@@ -100,5 +115,11 @@ public class GameController extends TicTacToeController {
 
         clickedButton.setGraphic(imageView);
         clickedButton.setDisable(true);
+    }
+
+    public void reset() {
+        GridPane boardGridPane = (GridPane) boardAnchorPane.getChildren().getFirst();
+        boardGridPane.getChildren().clear();
+        boardAnchorPane.getChildren().remove(boardGridPane);
     }
 }

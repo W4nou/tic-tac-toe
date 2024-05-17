@@ -15,6 +15,12 @@ public class TicTacToeController {
     public static Stage nouvellePartie;
 
     @FXML
+    public static Stage game;
+
+    @FXML
+    public static GameController gameController;
+
+    @FXML
     void onReglesMenuButtonClicked() {
         reglesScene.show();
     }
@@ -26,6 +32,8 @@ public class TicTacToeController {
 
     @FXML
     void onNewGameButtonClicked() {
-
-        nouvellePartie.show();}
+        nouvellePartie.show();
+        game.hide();
+        gameController.reset();
+    }
 }

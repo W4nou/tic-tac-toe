@@ -75,6 +75,9 @@ public class TicTacToeApplication extends Application {
         GameController gameController = fxmlGameLoader.getController();
         nouvellePartieController.setGameController(gameController);
 
+        TicTacToeController.gameController = gameController;
+        TicTacToeController.game = game;
+
         stage.show();
     }
 
