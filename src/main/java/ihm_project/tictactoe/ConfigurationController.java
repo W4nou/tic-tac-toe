@@ -47,6 +47,7 @@ public class ConfigurationController {
 
     private Player p1;
     private Player p2;
+    private boolean isFirstPlayerRandom;
 
     public File[] folderContent(String path) {
         File shapesFolder = new File(path);
@@ -83,6 +84,8 @@ public class ConfigurationController {
 
         updateShape(p2ShapeComboBox.getValue(), p2ImageView);
         updateShapeColor(p2ImageView, colorToBlend(p2ColorPicker.getValue()));
+
+        isFirstPlayerRandom = false;
 
         // EventListener for shape and color selection
 
@@ -126,5 +129,14 @@ public class ConfigurationController {
 
     public int getBoardSize() {
         return (int) boardSizeSlider.getValue();
+    }
+
+    @FXML
+    public void randomFirstPlayerChecked() {
+        isFirstPlayerRandom = !isFirstPlayerRandom;
+    }
+
+    public boolean getIsRandomFirstPlayer() {
+        return isFirstPlayerRandom;
     }
 }

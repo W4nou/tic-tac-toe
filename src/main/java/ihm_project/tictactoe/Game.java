@@ -1,25 +1,25 @@
 package ihm_project.tictactoe;
 
+import java.util.Random;
+
 public class Game {
-    private static final int SIZE_DEFAULT = 3;
-
-
     private final Player p1;
     private final Player p2;
     private Player[][] board;
     private final int size;
     private boolean isP1Turn;
 
-    public Game(Player p1, Player p2, int size) {
+    public Game(Player p1, Player p2, int size, boolean isFirstPlayerRandom) {
         this.p1 = p1;
         this.p2 = p2;
         this.size = size;
         board = new Player[this.size][this.size];
-        isP1Turn = true;
-    }
 
-    public Game(Player p1, Player p2) {
-        this(p1, p2, SIZE_DEFAULT);
+        if (isFirstPlayerRandom) {
+            isP1Turn = new Random().nextBoolean();
+        } else {
+            isP1Turn = true;
+        }
     }
 
     public Player winner() {

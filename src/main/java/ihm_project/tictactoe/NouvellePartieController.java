@@ -51,7 +51,7 @@ public class NouvellePartieController extends TicTacToeController {
         p1TextField.setText(Player.P1_NAME_DEFAULT);
         p2TextField.setText(Player.P2_NAME_DEFAULT);
 
-        // handlers to synchronize Textfield across both windows
+        // handlers to synchronize TextField across both windows
         p1TextField.textProperty().addListener((observable, oldValue, newValue) -> {
             configurationController.reloadPseudo(p1TextField.getText(), p2TextField.getText());
         });
@@ -91,9 +91,11 @@ public class NouvellePartieController extends TicTacToeController {
         p1 = configurationController.getP1();
         p2 = configurationController.getP2();
 
+        boolean isRandomFirstPlayer = configurationController.getIsRandomFirstPlayer();
+
         boardSize = configurationController.getBoardSize();
 
-        gameController.setGame(new Game(p1, p2, boardSize));
+        gameController.setGame(new Game(p1, p2, boardSize, isRandomFirstPlayer));
 
         gameScene.show();
 
