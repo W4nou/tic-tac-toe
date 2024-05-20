@@ -2,7 +2,6 @@ package ihm_project.tictactoe;
 
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
-import javafx.scene.* ;
 
 public class TicTacToeController {
     @FXML

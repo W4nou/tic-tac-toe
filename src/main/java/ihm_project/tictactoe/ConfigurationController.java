@@ -16,8 +16,7 @@ import java.io.File;
 import java.util.Objects;
 
 public class ConfigurationController {
-    private static final String P1_NAME_DEFAULT = "Joueur 1";
-    private static final String P2_NAME_DEFAULT = "Joueur 2";
+    private static final String SHAPES_LOCATION_DEFAULT = "src/main/resources/ihm_project/tictactoe/shapes/";
 
     @FXML
     private TextField p2PseudoTextField;
@@ -60,7 +59,7 @@ public class ConfigurationController {
     }
 
     public void updateShape(String shape, ImageView imageView) {
-        File previewFile = new File("src/main/resources/ihm_project/tictactoe/shapes/" + shape);
+        File previewFile = new File(SHAPES_LOCATION_DEFAULT + shape);
         Image previewImage = new Image(previewFile.toURI().toString());
         imageView.setImage(previewImage);
     }
@@ -71,7 +70,7 @@ public class ConfigurationController {
 
     @FXML
     public void initialize() {
-        File[] shapes = folderContent("src/main/resources/ihm_project/tictactoe/shapes");
+        File[] shapes = folderContent(SHAPES_LOCATION_DEFAULT);
         for (File shape : shapes) {
             p1ShapeComboBox.getItems().add(shape.getName());
             p2ShapeComboBox.getItems().add(shape.getName());
@@ -97,12 +96,13 @@ public class ConfigurationController {
 
         p1 = new Player(p1ImageView.getImage(), p1ImageView.getEffect(), p1PseudoTextField.getText());
         p2 = new Player(p2ImageView.getImage(), p2ImageView.getEffect(), p2PseudoTextField.getText());
-
     }
 
     public void reloadPseudo(String p1Name, String p2Name) {
-        p1PseudoTextField.setText(Objects.equals(p1Name, "") ? P1_NAME_DEFAULT : p1Name);
-        p2PseudoTextField.setText(Objects.equals(p2Name, "") ? P2_NAME_DEFAULT : p2Name);
+        p1PseudoTextField.setText(p1Name);
+        p2PseudoTextField.setText(p2Name);
+        p1.setName(p1Name);
+        p2.setName(p2Name);
     }
 
     @FXML
@@ -127,5 +127,4 @@ public class ConfigurationController {
     public int getBoardSize() {
         return (int) boardSizeSlider.getValue();
     }
-
 }

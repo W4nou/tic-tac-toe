@@ -7,6 +7,8 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 public class NouvellePartieController extends TicTacToeController {
 
     @FXML
@@ -37,7 +39,7 @@ public class NouvellePartieController extends TicTacToeController {
         ordinateurCheckBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent selectedItemProperty) {
-                p2TextField.setDisable(ordinateurCheckBox.isSelected()); // activation ou désactivation du TextField
+                p2TextField.setDisable(ordinateurCheckBox.isSelected());
                 if (p2TextField.isDisable()) {
                     p2TextField.setText("Ordinateur");
                 } else {
@@ -45,11 +47,36 @@ public class NouvellePartieController extends TicTacToeController {
                 }
             }
         });
+
+        p1TextField.setText(Player.P1_NAME_DEFAULT);
+        p2TextField.setText(Player.P2_NAME_DEFAULT);
+
+        // handlers to synchronize Textfield across both windows
+        p1TextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            configurationController.reloadPseudo(p1TextField.getText(), p2TextField.getText());
+        });
+
+        p2TextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            configurationController.reloadPseudo(p1TextField.getText(), p2TextField.getText());
+        });
+
+        // handlers to use default value if nothing is in the textField and the textField is not selected
+        p1TextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue && p1TextField.getText().isEmpty()) {
+                p1TextField.setText(Player.P1_NAME_DEFAULT);
+            }
+        });
+
+        p2TextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue && p2TextField.getText().isEmpty()) {
+                p2TextField.setText(Player.P2_NAME_DEFAULT);
+            }
+        });
     }
 
     @FXML
     void onConfigurationPartieButtonClicked() {
-        configurationController.reloadPseudo(p1TextField.getText(), p2TextField.getText());
+//        configurationController.reloadPseudo(p1TextField.getText(), p2TextField.getText());
         configurationPartieScene.show();
     }
 
@@ -59,7 +86,7 @@ public class NouvellePartieController extends TicTacToeController {
         Stage stage = (Stage) btn.getScene().getWindow();
         stage.hide();
 
-        configurationController.reloadPseudo(p1TextField.getText(), p2TextField.getText());
+//        configurationController.reloadPseudo(p1TextField.getText(), p2TextField.getText());
 
         p1 = configurationController.getP1();
         p2 = configurationController.getP2();
