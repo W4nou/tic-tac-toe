@@ -26,22 +26,26 @@ public class EndGameController extends TicTacToeController {
         if (name == null) {
             gameResultLabel.setText("Il n'y a aucun gagnant \u00E0 cette partie");
         } else {
-            if (!name.equals(Player.P1_NAME_DEFAULT) && !Objects.equals(name, Player.P2_NAME_DEFAULT)) {
-                String scoreKey = score.getProperty(name);
-                int scoreValue;
-                if (scoreKey != null) {
-                    scoreValue = Integer.parseInt(scoreKey);
-                } else {
-                    scoreValue = 0;
-                }
-                score.setProperty(name, String.valueOf(scoreValue + 1));
-                super.saveScore(score);
-            }
-            System.out.println(score);
+            updateScore(name);
             gameResultLabel.setText(name + " \u00E0 gagn\u00E9 la partie");
-
         }
         endGameStage.show();
+    }
+
+    private void updateScore(String name) {
+        if (name.equals(Player.P1_NAME_DEFAULT) || Objects.equals(name, Player.P2_NAME_DEFAULT)) {
+            return;
+        }
+
+        String scoreKey = score.getProperty(name);
+        int scoreValue;
+        if (scoreKey != null) {
+            scoreValue = Integer.parseInt(scoreKey);
+        } else {
+            scoreValue = 0;
+        }
+        score.setProperty(name, String.valueOf(scoreValue + 1));
+        super.saveScore(score);
     }
 
     @FXML

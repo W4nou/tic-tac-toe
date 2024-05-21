@@ -102,7 +102,7 @@ public class GameController extends TicTacToeController {
     private void changeAllButtons(boolean activation,Pane root) {
         for (Node node : root.getChildrenUnmodifiable()) {
             if (node instanceof Button button) {
-                button.setDisable(activation);
+                button.setDisable(!activation);
                 if (button.getGraphic() instanceof ImageView && activation) {
                     button.setGraphic(null);
                 }
@@ -126,7 +126,7 @@ public class GameController extends TicTacToeController {
         clickedButton.setDisable(true);
     }
 
-    public void reset() {
+    public void resetNewGame() {
         GridPane boardGridPane = (GridPane) boardAnchorPane.getChildren().getFirst();
         boardGridPane.getChildren().clear();
         boardAnchorPane.getChildren().remove(boardGridPane);
@@ -136,10 +136,10 @@ public class GameController extends TicTacToeController {
         this.endGameController = endGameController;
     }
 
-    public void resetBoard() {
+    public void restartGame() {
         gameStatusLabel.setText("A " + game.whoseTurn().getName() + " de jouer\n");
         GridPane boardGridPane = (GridPane) boardAnchorPane.getChildren().getFirst();
         changeAllButtons(true,boardGridPane);
-        game.reset();
+        game.restart();
     }
 }

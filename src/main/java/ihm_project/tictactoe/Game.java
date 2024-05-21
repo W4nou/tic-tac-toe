@@ -105,7 +105,7 @@ public class Game {
         return true;
     }
 
-    public void reset() {
+    public void restart() {
         board = new Player[this.size][this.size];
     }
 }

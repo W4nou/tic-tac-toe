@@ -34,14 +34,14 @@ public class TicTacToeController {
 
     @FXML
     public void onRetryButtonClicked() {
-        gameController.resetBoard();
+        gameController.restartGame();
     }
 
     @FXML
     public void onNewGameButtonClicked() {
         newGame.show();
         game.hide();
-        gameController.reset();
+        gameController.resetNewGame();
     }
 
     public Properties getScore() {
