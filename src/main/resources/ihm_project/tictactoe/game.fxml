@@ -19,8 +19,8 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Aide">
                <items>
-                  <MenuItem fx:id="reglesMenuButton" mnemonicParsing="false" onAction="#onReglesMenuButtonClicked" text="Régles" />
-                  <MenuItem fx:id="aProposMenuButton" mnemonicParsing="false" onAction="#onAProposMenuButtonClicked" text="A propos" />
+                  <MenuItem fx:id="reglesMenuButton" mnemonicParsing="false" onAction="#onRulesButtonClicked" text="Régles" />
+                  <MenuItem fx:id="aProposMenuButton" mnemonicParsing="false" onAction="#onAboutButtonClicked" text="A propos" />
                </items>
             </Menu>
          </menus>

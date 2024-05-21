@@ -11,9 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
 import java.io.File;
-import java.util.Objects;
 
 public class ConfigurationController {
     private static final String SHAPES_LOCATION_DEFAULT = "src/main/resources/ihm_project/tictactoe/shapes/";

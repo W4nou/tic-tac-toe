@@ -9,10 +9,10 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="225.0" prefWidth="325.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm_project.tictactoe.NouvellePartieController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="225.0" prefWidth="325.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm_project.tictactoe.newGameController">
    <children>
-      <Button fx:id="nouvellePartieButton" layoutX="214.0" layoutY="186.0" mnemonicParsing="false" onAction="#onNouvellePartieButtonClicked" text="Nouvelle Partie" />
-      <Button fx:id="configPartieButton" layoutX="14.0" layoutY="186.0" mnemonicParsing="false" onAction="#onConfigurationPartieButtonClicked" text="Configuration Partie" />
+      <Button fx:id="nouvellePartieButton" layoutX="214.0" layoutY="186.0" mnemonicParsing="false" onAction="#onNewGameButtonClicked" text="Nouvelle Partie" />
+      <Button fx:id="configPartieButton" layoutX="14.0" layoutY="186.0" mnemonicParsing="false" onAction="#onConfigurationGameButtonClicked" text="Configuration Partie" />
       <MenuBar prefHeight="25.0" prefWidth="325.0">
         <menus>
           <Menu mnemonicParsing="false" text="Partie">
@@ -23,8 +23,8 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Aide">
             <items>
-              <MenuItem fx:id="reglesMenuButton" mnemonicParsing="false" onAction="#onReglesMenuButtonClicked" text="Régles" />
-              <MenuItem fx:id="aProposMenuButton" mnemonicParsing="false" onAction="#onAProposMenuButtonClicked" text="A propos" />
+              <MenuItem fx:id="reglesMenuButton" mnemonicParsing="false" onAction="#onRulesButtonClicked" text="Régles" />
+              <MenuItem fx:id="aProposMenuButton" mnemonicParsing="false" onAction="#onAboutButtonClicked" text="A propos" />
             </items>
           </Menu>
         </menus>

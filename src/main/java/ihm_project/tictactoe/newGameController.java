@@ -7,9 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import java.util.Objects;
-
-public class NouvellePartieController extends TicTacToeController {
+public class newGameController extends TicTacToeController {
 
     @FXML
     private TextField p1TextField;
@@ -21,7 +19,7 @@ public class NouvellePartieController extends TicTacToeController {
     private CheckBox ordinateurCheckBox;
 
     @FXML
-    public Stage configurationPartieScene;
+    public Stage configurationGameScene;
 
     @FXML
     public Stage gameScene;
@@ -75,18 +73,15 @@ public class NouvellePartieController extends TicTacToeController {
     }
 
     @FXML
-    void onConfigurationPartieButtonClicked() {
-//        configurationController.reloadPseudo(p1TextField.getText(), p2TextField.getText());
-        configurationPartieScene.show();
+    void onConfigurationGameButtonClicked() {
+        configurationGameScene.show();
     }
 
     @FXML
-    void onNouvellePartieButtonClicked(ActionEvent event) throws Exception {
+    void onNewGameButtonClicked(ActionEvent event) throws Exception {
         Button btn = (Button) event.getSource();
         Stage stage = (Stage) btn.getScene().getWindow();
         stage.hide();
-
-//        configurationController.reloadPseudo(p1TextField.getText(), p2TextField.getText());
 
         p1 = configurationController.getP1();
         p2 = configurationController.getP2();
@@ -98,7 +93,6 @@ public class NouvellePartieController extends TicTacToeController {
         gameController.setGame(new Game(p1, p2, boardSize, isRandomFirstPlayer));
 
         gameScene.show();
-
     }
 
     public void setConfigurationController(ConfigurationController configurationController) {

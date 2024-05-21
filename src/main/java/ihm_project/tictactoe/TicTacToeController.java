@@ -5,13 +5,13 @@ import javafx.stage.Stage;
 
 public class TicTacToeController {
     @FXML
-    public static Stage reglesScene;
+    public static Stage rulesScene;
 
     @FXML
-    public static Stage aProposScene;
+    public static Stage aboutScene;
 
     @FXML
-    public static Stage nouvellePartie;
+    public static Stage newGame;
 
     @FXML
     public static Stage game;
@@ -20,13 +20,13 @@ public class TicTacToeController {
     public static GameController gameController;
 
     @FXML
-    public void onReglesMenuButtonClicked() {
-        reglesScene.show();
+    public void onRulesButtonClicked() {
+        rulesScene.show();
     }
 
     @FXML
-    public void onAProposMenuButtonClicked() {
-        aProposScene.show();
+    public void onAboutButtonClicked() {
+        aboutScene.show();
     }
 
     @FXML
@@ -36,7 +36,7 @@ public class TicTacToeController {
 
     @FXML
     public void onNewGameButtonClicked() {
-        nouvellePartie.show();
+        newGame.show();
         game.hide();
         gameController.reset();
     }
