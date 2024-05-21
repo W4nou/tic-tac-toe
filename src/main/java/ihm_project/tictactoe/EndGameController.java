@@ -5,6 +5,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+import java.util.Properties;
+
 public class EndGameController extends TicTacToeController {
 
     @FXML
@@ -12,6 +15,8 @@ public class EndGameController extends TicTacToeController {
 
     @FXML
     private Label gameResultLabel;
+
+    private Properties score = super.getScore();
 
     public void setEndGameStage(Stage endGameStage) {
         this.endGameStage = endGameStage;
@@ -21,6 +26,18 @@ public class EndGameController extends TicTacToeController {
         if (name == null) {
             gameResultLabel.setText("Il n'y a aucun gagnant \u00E0 cette partie");
         } else {
+            if (!name.equals(Player.P1_NAME_DEFAULT) && !Objects.equals(name, Player.P2_NAME_DEFAULT)) {
+                String scoreKey = score.getProperty(name);
+                int scoreValue;
+                if (scoreKey != null) {
+                    scoreValue = Integer.parseInt(scoreKey);
+                } else {
+                    scoreValue = 0;
+                }
+                score.setProperty(name, String.valueOf(scoreValue + 1));
+                super.saveScore(score);
+            }
+            System.out.println(score);
             gameResultLabel.setText(name + " \u00E0 gagn\u00E9 la partie");
 
         }
