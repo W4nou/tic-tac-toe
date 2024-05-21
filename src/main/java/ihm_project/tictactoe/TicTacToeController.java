@@ -31,7 +31,7 @@ public class TicTacToeController {
 
     @FXML
     public void onRetryButtonClicked() {
-        // TODO
+        gameController.resetBoard();
     }
 
     @FXML

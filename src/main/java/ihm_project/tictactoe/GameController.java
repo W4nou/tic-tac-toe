@@ -77,7 +77,7 @@ public class GameController extends TicTacToeController {
         boardAnchorPane.getScene().getStylesheets().add(css);
     }
 
-    public void played(int row, int column, MouseEvent event) {
+    private void played(int row, int column, MouseEvent event) {
         Button clickedButton = (Button) event.getSource();
 
         Player resultPlayer = game.played(row, column);
@@ -93,23 +93,26 @@ public class GameController extends TicTacToeController {
             gameStatusLabel.setText("La partie est termin\u00E9\n");
 
             GridPane boardGridPane = (GridPane) boardAnchorPane.getChildren().getFirst();
-            disableAllButtons(boardGridPane);
+            changeAllButtons(false,boardGridPane);
 
             endGameController.displayWinner(winnerName);
         }
     }
 
-    public void disableAllButtons(Pane root) {
+    private void changeAllButtons(boolean activation,Pane root) {
         for (Node node : root.getChildrenUnmodifiable()) {
-            if (node instanceof Button) {
-                node.setDisable(true);
-            } else if (node instanceof Pane) {
-                disableAllButtons((Pane) node);
+            if (node instanceof Button button) {
+                button.setDisable(activation);
+                if (button.getGraphic() instanceof ImageView && activation) {
+                    button.setGraphic(null);
+                }
+            } else if (node instanceof Pane pane) {
+                changeAllButtons(activation,pane);
             }
         }
     }
 
-    public void updateButtonGraphic(Player player, Button clickedButton) {
+    private void updateButtonGraphic(Player player, Button clickedButton) {
         ImageView imageView = new ImageView();
         imageView.setImage(player.getShape());
         imageView.setEffect(player.getColor());
@@ -131,5 +134,12 @@ public class GameController extends TicTacToeController {
 
     public void setEndGameController(EndGameController endGameController){
         this.endGameController = endGameController;
+    }
+
+    public void resetBoard() {
+        gameStatusLabel.setText("A " + game.whoseTurn().getName() + " de jouer\n");
+        GridPane boardGridPane = (GridPane) boardAnchorPane.getChildren().getFirst();
+        changeAllButtons(true,boardGridPane);
+        game.reset();
     }
 }

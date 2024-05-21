@@ -33,7 +33,7 @@
       <Label layoutX="16.0" layoutY="251.0" text="Taille du plateau :" />
       <ImageView fx:id="p1ImageView" fitHeight="80.0" fitWidth="80.0" layoutX="234.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="p2ImageView" fitHeight="80.0" fitWidth="80.0" layoutX="234.0" layoutY="119.0" pickOnBounds="true" preserveRatio="true" />
-        <Button fx:id="confirmerButton" layoutX="240.0" layoutY="329.0" mnemonicParsing="false" onAction="#onConfirmerButtonClicked" text="Confirmer" />
+        <Button fx:id="confirmationButton" layoutX="240.0" layoutY="329.0" mnemonicParsing="false" onAction="#onConfirmerButtonClicked" text="Confirmer" />
       <CheckBox fx:id="randomFirstPlayerCheckBox" layoutX="15.0" layoutY="213.0" mnemonicParsing="false" onAction="#randomFirstPlayerChecked" text="Premier joueur choisi aléatoirement" />
     </children>
 </Pane>

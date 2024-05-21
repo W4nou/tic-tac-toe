@@ -1,11 +1,12 @@
 package ihm_project.tictactoe;
 
 import java.util.Random;
+import java.util.function.Function;
 
 public class Game {
     private final Player p1;
     private final Player p2;
-    private final Player[][] board;
+    private Player[][] board;
     private final int size;
     private boolean isP1Turn;
 
@@ -40,60 +41,35 @@ public class Game {
         return checkDiagonalLine();
     }
 
-    private Player checkRowLine(int row) {
-        Player previousCell = board[0][row];
+    private Player checkLine(int end, Function<Integer, Player> step) {
+        Player previousCell = step.apply(0);
         Player actualCell;
 
-        for (int column = 1; column < size; column++) {
-            actualCell = board[column][row];
+        for (int i = 1; i <= end; i++) {
+            actualCell = step.apply(i);
 
             if (actualCell == null || actualCell != previousCell) {
                 return null;
             }
         }
         return previousCell;
+    }
+
+    private Player checkRowLine(int row) {
+        return checkLine(size - 1, column -> board[column][row]);
     }
 
     private Player checkColumnLine(int column) {
-        Player previousCell = board[column][0];
-        Player actualCell;
-
-        for (int row = 1; row < size; row++) {
-            actualCell = board[column][row];
-
-            if (actualCell == null || actualCell != previousCell) {
-                return null;
-            }
-        }
-        return previousCell;
+        return checkLine(size - 1, row -> board[column][row]);
     }
 
     private Player checkDiagonalLine() {
-        Player previousCell = board[0][0];
-        Player actualCell = null;
-
-        // Check main diagonal
-        for (int diag = 1; diag < size; diag++) {
-            actualCell = board[diag][diag];
-
-            if (actualCell == null || actualCell != previousCell) {
-                break;
-            }
-        }
-        if (actualCell == previousCell && actualCell != null) {
-            return actualCell;
+        Player winner = checkLine(size - 1, diag -> board[diag][diag]);
+        if (winner != null) {
+            return winner;
         }
 
-        // Check anti-diagonal
-        previousCell = board[0][size - 1];
-        for (int diag = 1; diag < size; diag++) {
-            actualCell = board[diag][size - 1 - diag];
-
-            if (actualCell == null || actualCell != previousCell) {
-                return null;
-            }
-        }
-        return previousCell;
+        return checkLine(size - 1, diag -> board[diag][size - 1 - diag]);
     }
 
     public boolean canPlay(int row, int column) {
@@ -127,5 +103,9 @@ public class Game {
             }
         }
         return true;
+    }
+
+    public void reset() {
+        board = new Player[this.size][this.size];
     }
 }
