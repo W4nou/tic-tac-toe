@@ -5,7 +5,7 @@ import java.util.Random;
 public class Game {
     private final Player p1;
     private final Player p2;
-    private Player[][] board;
+    private final Player[][] board;
     private final int size;
     private boolean isP1Turn;
 
@@ -72,6 +72,7 @@ public class Game {
         Player previousCell = board[0][0];
         Player actualCell = null;
 
+        // Check main diagonal
         for (int diag = 1; diag < size; diag++) {
             actualCell = board[diag][diag];
 
@@ -83,9 +84,10 @@ public class Game {
             return actualCell;
         }
 
-        previousCell = board[size - 1][size - 1];
-        for (int diag = size - 1; diag >= 0; diag--) {
-            actualCell = board[diag][diag];
+        // Check anti-diagonal
+        previousCell = board[0][size - 1];
+        for (int diag = 1; diag < size; diag++) {
+            actualCell = board[diag][size - 1 - diag];
 
             if (actualCell == null || actualCell != previousCell) {
                 return null;
@@ -114,5 +116,16 @@ public class Game {
 
     public int getSize() {
         return size;
+    }
+
+    public boolean isBoardFull() {
+        for (int row = 0; row < size; row++) {
+            for (int column = 0; column < size; column++) {
+                if (board[row][column] == null) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

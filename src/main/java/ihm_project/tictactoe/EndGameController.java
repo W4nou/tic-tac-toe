@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-public class EndGameController extends TicTacToeController{
+public class EndGameController extends TicTacToeController {
 
     @FXML
     private Stage endGameStage;
@@ -13,21 +13,22 @@ public class EndGameController extends TicTacToeController{
     @FXML
     private Label gameResultLabel;
 
-    public void setEndGameStage(Stage endGameStage){
+    public void setEndGameStage(Stage endGameStage) {
         this.endGameStage = endGameStage;
     }
 
     public void displayWinner(String name) {
         if (name == null) {
             gameResultLabel.setText("Il n'y a aucun gagnant \u00E0 cette partie");
-            return;
+        } else {
+            gameResultLabel.setText(name + " \u00E0 gagn\u00E9 la partie");
+
         }
-        gameResultLabel.setText(name+" \u00E0 gagn\u00E9 la partie");
         endGameStage.show();
     }
 
     @FXML
-    public void onExitButtonClicked(){
+    public void onExitButtonClicked() {
         Platform.exit();
     }
 
@@ -38,7 +39,7 @@ public class EndGameController extends TicTacToeController{
     }
 
     @Override
-    public void onNewGameButtonClicked(){
+    public void onNewGameButtonClicked() {
         endGameStage.hide();
         super.onNewGameButtonClicked();
     }

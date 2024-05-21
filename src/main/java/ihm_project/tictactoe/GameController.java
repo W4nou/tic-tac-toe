@@ -86,13 +86,16 @@ public class GameController extends TicTacToeController {
         updateButtonGraphic(resultPlayer, clickedButton);
 
         Player winner = game.winner();
-        if (winner != null) {
-            gameStatusLabel.setText(winner.getName() + " \u00E0 gagn\u00E9\n");
+        boolean boardFull = game.isBoardFull();
+        String winnerName = (winner == null) ? null : winner.getName();
+
+        if (winner != null || boardFull) {
+            gameStatusLabel.setText("La partie est termin\u00E9\n");
 
             GridPane boardGridPane = (GridPane) boardAnchorPane.getChildren().getFirst();
             disableAllButtons(boardGridPane);
 
-            endGameController.displayWinner(winner.getName());
+            endGameController.displayWinner(winnerName);
         }
     }
 
