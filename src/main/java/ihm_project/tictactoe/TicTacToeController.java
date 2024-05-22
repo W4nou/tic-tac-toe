@@ -46,7 +46,7 @@ public class TicTacToeController {
 
     public Properties getScore() {
         Properties score = new Properties();
-        try (InputStream scoreInputStream = new FileInputStream("score.xml")) {
+        try (InputStream scoreInputStream = new FileInputStream("src/main/java/ihm_project/tictactoe/score.xml")) {
             score.loadFromXML(scoreInputStream);
         } catch (IOException e) {
             System.err.println("Impossible to open score.xml, creating a new one");
@@ -56,7 +56,7 @@ public class TicTacToeController {
     }
 
     public void saveScore(Properties score) {
-        try (OutputStream scoreOutputStream = new FileOutputStream("score.xml")) {
+        try (OutputStream scoreOutputStream = new FileOutputStream("src/main/java/ihm_project/tictactoe/score.xml")) {
             score.storeToXML(scoreOutputStream,"");
         } catch (Exception e) {
             System.err.println("Impossible to save score.xml");
