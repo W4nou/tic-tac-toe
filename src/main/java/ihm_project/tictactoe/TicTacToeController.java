@@ -7,6 +7,7 @@ import java.io.*;
 import java.util.Properties;
 
 public class TicTacToeController {
+    public static final String SCORE_LOCATION_DEFAULT = "src/main/resources/ihm_project/tictactoe/score.xml";
     @FXML
     public static Stage rulesScene;
 
@@ -46,7 +47,7 @@ public class TicTacToeController {
 
     public Properties getScore() {
         Properties score = new Properties();
-        try (InputStream scoreInputStream = new FileInputStream("score.xml")) {
+        try (InputStream scoreInputStream = new FileInputStream(SCORE_LOCATION_DEFAULT)) {
             score.loadFromXML(scoreInputStream);
         } catch (IOException e) {
             System.err.println("Impossible to open score.xml, creating a new one");
@@ -56,8 +57,8 @@ public class TicTacToeController {
     }
 
     public void saveScore(Properties score) {
-        try (OutputStream scoreOutputStream = new FileOutputStream("score.xml")) {
-            score.storeToXML(scoreOutputStream,"");
+        try (OutputStream scoreOutputStream = new FileOutputStream(SCORE_LOCATION_DEFAULT)) {
+            score.storeToXML(scoreOutputStream, "");
         } catch (Exception e) {
             System.err.println("Impossible to save score.xml");
         }

@@ -27,11 +27,10 @@
          </font>
       </Label>
       <TableView fx:id="leaderBoardTable" layoutX="15.0" layoutY="132.0" prefHeight="200.0" prefWidth="284.0">
-        <columns>
-          <TableColumn prefWidth="185.5" sortType="DESCENDING" text="Pseudo" />
-          <TableColumn prefWidth="97.5" text="Score" />
-        </columns>
-      </TableView>
+         <columns>
+            <TableColumn fx:id="pseudoTableColumn" prefWidth="213.0" text="Pseudo" />
+            <TableColumn fx:id="scoreTableColumn" minWidth="0.0" prefWidth="70.0" resizable="false" text="Score" />
+         </columns></TableView>
       <Label fx:id="leaderBoardLabel" layoutX="19.0" layoutY="104.0" text="Tableaux des scores">
          <font>
             <Font size="15.0" />
