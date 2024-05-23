@@ -16,33 +16,35 @@ import java.io.File;
 import java.util.Objects;
 
 public class ConfigurationController {
-    private static final String SHAPES_LOCATION_DEFAULT = "src/main/resources/ihm_project/tictactoe/shapes/";
+    public static final String SHAPES_LOCATION_DEFAULT = "src/main/resources/ihm_project/tictactoe/shapes/";
+    public static final String P1_SHAPE_DEFAULT = "emptyCircle.png";
+    public static final String P2_SHAPE_DEFAULT = "fullCross.png";
 
     private Player p1;
     private Player p2;
     private boolean isFirstPlayerRandom = false;
 
-    public File[] folderContent(String path) {
-        File shapesFolder = new File(path);
+    private File[] folderContent() {
+        File shapesFolder = new File(ConfigurationController.SHAPES_LOCATION_DEFAULT);
         return shapesFolder.getAbsoluteFile().listFiles();
     }
 
-    public Blend colorToBlend(Color color) {
+    private Blend colorToBlend(Color color) {
         ColorInput colorInput = new ColorInput(0, 0, Double.MAX_VALUE, Double.MAX_VALUE, color);
         return new Blend(BlendMode.SRC_ATOP, null, colorInput);
     }
 
-    public void updateShape(String shape, ImageView imageView) {
+    private void updateShape(String shape, ImageView imageView) {
         File previewFile = new File(SHAPES_LOCATION_DEFAULT + shape);
         Image previewImage = new Image(previewFile.toURI().toString());
         imageView.setImage(previewImage);
     }
 
-    public void updateShapeColor(ImageView imageView, Blend effect) {
+    private void updateShapeColor(ImageView imageView, Blend effect) {
         imageView.setEffect(effect);
     }
 
-    public void reloadPseudo(String newName, TextField textfield) {
+    protected void reloadPseudo(String newName, TextField textfield) {
         if (Objects.equals(textfield.getId(), "p1TextField")) {
             p1PseudoTextField.setText(newName);
             p1.setName(newName);
@@ -52,19 +54,19 @@ public class ConfigurationController {
         }
     }
 
-    public boolean getIsRandomFirstPlayer() {
+    protected boolean getIsRandomFirstPlayer() {
         return isFirstPlayerRandom;
     }
 
-    public Player getP1() {
+    protected Player getP1() {
         return p1;
     }
 
-    public Player getP2() {
+    protected Player getP2() {
         return p2;
     }
 
-    public int getBoardSize() {
+    protected int getBoardSize() {
         return (int) boardSizeSlider.getValue();
     }
 
@@ -97,37 +99,31 @@ public class ConfigurationController {
     private ImageView p2ImageView;
 
     @FXML
-    public void initialize() {
-        File[] shapes = folderContent(SHAPES_LOCATION_DEFAULT);
+    private void initialize() {
+        File[] shapes = folderContent();
         for (File shape : shapes) {
             p1ShapeComboBox.getItems().add(shape.getName());
             p2ShapeComboBox.getItems().add(shape.getName());
         }
-        p1ShapeComboBox.setValue("emptyCircle.png");
-        p2ShapeComboBox.setValue("fullCross.png");
+        p1ShapeComboBox.setValue(P1_SHAPE_DEFAULT);
+        p2ShapeComboBox.setValue(P2_SHAPE_DEFAULT);
 
-        updateShape(p1ShapeComboBox.getValue(), p1ImageView);
-        updateShapeColor(p1ImageView, colorToBlend(p1ColorPicker.getValue()));
+        p1 = initializePlayer(p1ShapeComboBox, p1ImageView, p1ColorPicker, p1PseudoTextField);
+        p2 = initializePlayer(p2ShapeComboBox, p2ImageView, p2ColorPicker, p2PseudoTextField);
+    }
 
-        updateShape(p2ShapeComboBox.getValue(), p2ImageView);
-        updateShapeColor(p2ImageView, colorToBlend(p2ColorPicker.getValue()));
+    private Player initializePlayer(ComboBox<String> shapeComboBox, ImageView imageView, ColorPicker colorPicker, TextField pseudoTextField) {
+        updateShape(shapeComboBox.getValue(), imageView);
+        updateShapeColor(imageView, colorToBlend(colorPicker.getValue()));
 
-        // EventListener for shape and color selection
+        shapeComboBox.setOnAction(event -> updateShape(shapeComboBox.getValue(), imageView));
+        colorPicker.setOnAction(event -> Platform.runLater(() -> updateShapeColor(imageView, colorToBlend(colorPicker.getValue()))));
 
-        p1ShapeComboBox.setOnAction(event -> updateShape(p1ShapeComboBox.getValue(), p1ImageView));
-        p2ShapeComboBox.setOnAction(event -> updateShape(p2ShapeComboBox.getValue(), p2ImageView));
-
-        // use of Platform.runLater because without it, It was not updating in real time
-
-        p1ColorPicker.setOnAction(event -> Platform.runLater(() -> updateShapeColor(p1ImageView, colorToBlend(p1ColorPicker.getValue()))));
-        p2ColorPicker.setOnAction(event -> Platform.runLater(() -> updateShapeColor(p2ImageView, colorToBlend(p2ColorPicker.getValue()))));
-
-        p1 = new Player(p1ImageView.getImage(), p1ImageView.getEffect(), p1PseudoTextField.getText());
-        p2 = new Player(p2ImageView.getImage(), p2ImageView.getEffect(), p2PseudoTextField.getText());
+        return new Player(imageView.getImage(), imageView.getEffect(), pseudoTextField.getText());
     }
 
     @FXML
-    void onConfirmerButtonClicked(ActionEvent event) {
+    private void onConfirmerButtonClicked(ActionEvent event) {
         p1 = new Player(p1ImageView.getImage(), p1ImageView.getEffect(), p1PseudoTextField.getText());
         p2 = new Player(p2ImageView.getImage(), p2ImageView.getEffect(), p2PseudoTextField.getText());
 
@@ -138,7 +134,7 @@ public class ConfigurationController {
     }
 
     @FXML
-    public void randomFirstPlayerChecked() {
+    private void randomFirstPlayerChecked() {
         isFirstPlayerRandom = !isFirstPlayerRandom;
     }
 }
