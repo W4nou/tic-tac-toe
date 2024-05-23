@@ -10,19 +10,19 @@ public class NewGameController extends TicTacToeController {
     private ConfigurationController configurationController;
     private GameController gameController;
 
-    public void setConfigurationController(ConfigurationController configurationController) {
+    protected void setConfigurationController(ConfigurationController configurationController) {
         this.configurationController = configurationController;
     }
 
-    public void setGameController(GameController gameController) {
+    protected void setGameController(GameController gameController) {
         this.gameController = gameController;
     }
 
-    public void setGameStage(Stage gameStage) {
+    protected void setGameStage(Stage gameStage) {
         this.gameScene = gameStage;
     }
 
-    public void setConfigurationGameStage(Stage configurationGameStage) {
+    protected void setConfigurationGameStage(Stage configurationGameStage) {
         this.configurationGameStage = configurationGameStage;
     }
 
@@ -82,10 +82,7 @@ public class NewGameController extends TicTacToeController {
         boolean isRandomFirstPlayer = configurationController.getIsRandomFirstPlayer();
         int boardSize = configurationController.getBoardSize();
 
-        if (botCheckbox.isSelected()) {
-            p2.setBot(true);
-        }
-
+        p2.setBot(botCheckbox.isSelected());
         gameController.setGame(new Game(p1, p2, boardSize, isRandomFirstPlayer));
         gameScene.show();
     }
