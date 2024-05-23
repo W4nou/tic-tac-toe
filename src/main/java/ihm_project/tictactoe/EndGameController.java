@@ -1,7 +1,6 @@
 package ihm_project.tictactoe;
 
 import javafx.application.Platform;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,13 +24,16 @@ public class EndGameController extends TicTacToeController {
     }
 
     protected void refreshLeaderBoard() {
-        ObservableList<Map.Entry<String, String>> data = FXCollections.observableArrayList();
+        // browse through score variable and append each key and value to the leaderBoardData
+        ObservableList<Map.Entry<String, String>> leaderBoardData = FXCollections.observableArrayList();
         for (String pseudo : score.stringPropertyNames()) {
-            data.add(Map.entry(pseudo, score.getProperty(pseudo)));
+            leaderBoardData.add(Map.entry(pseudo, score.getProperty(pseudo)));
         }
-        leaderBoardTable.setItems(data);
+
+        leaderBoardTable.setItems(leaderBoardData);
         leaderBoardTable.getSortOrder().add(scoreTableColumn);
 
+        // disabling sortable capacity, so it's not possible to click on the column
         scoreTableColumn.setSortable(true);
         leaderBoardTable.sort();
         scoreTableColumn.setSortable(false);
@@ -54,6 +56,7 @@ public class EndGameController extends TicTacToeController {
         }
 
         String scoreKey = score.getProperty(name);
+        // create a new value if the name is not already in the leader board
         int scoreValue;
         if (scoreKey != null) {
             scoreValue = Integer.parseInt(scoreKey);
