@@ -18,7 +18,7 @@ public class TicTacToeApplication extends Application {
         Scene newGame = new Scene(fxmlNewGameLoader.load());
         stage.setTitle("TicTacToe : Nouvelle Partie");
         stage.setScene(newGame);
-        newGameController newGameController = fxmlNewGameLoader.getController();
+        NewGameController newGameController = fxmlNewGameLoader.getController();
 
         TicTacToeController.newGame = (Stage) newGame.getWindow();
 

@@ -11,7 +11,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
 import java.io.File;
+import java.util.Objects;
 
 public class ConfigurationController {
     private static final String SHAPES_LOCATION_DEFAULT = "src/main/resources/ihm_project/tictactoe/shapes/";
@@ -99,11 +101,14 @@ public class ConfigurationController {
         p2 = new Player(p2ImageView.getImage(), p2ImageView.getEffect(), p2PseudoTextField.getText());
     }
 
-    public void reloadPseudo(String p1Name, String p2Name) {
-        p1PseudoTextField.setText(p1Name);
-        p2PseudoTextField.setText(p2Name);
-        p1.setName(p1Name);
-        p2.setName(p2Name);
+    public void reloadPseudo(String newName, TextField textfield) {
+        if (Objects.equals(textfield.getId(), "p1TextField")) {
+            p1PseudoTextField.setText(newName);
+            p1.setName(newName);
+        } else {
+            p2PseudoTextField.setText(newName);
+            p2.setName(newName);
+        }
     }
 
     @FXML

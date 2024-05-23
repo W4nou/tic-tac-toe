@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 public class Player {
     public static final String P1_NAME_DEFAULT = "Joueur 1";
     public static final String P2_NAME_DEFAULT = "Joueur 2";
+    public static final String BOT_NAME_DEFAULT = "Ordinateur";
 
     private final Image shape;
     private final Effect color;
