@@ -36,7 +36,7 @@ public class TicTacToeApplication extends Application {
         ConfigurationController configurationController = fxmlConfigurationLoader.getController();
         newGameController.setConfigurationController(configurationController);
 
-        newGameController.configurationGameScene = configurationGame;
+        newGameController.setConfigurationGameStage(configurationGame);
 
 
 //        Creation of the 'rules' window
@@ -72,7 +72,7 @@ public class TicTacToeApplication extends Application {
         Scene gameScene = new Scene(fxmlGameLoader.load());
         game.setScene(gameScene);
 
-        newGameController.gameScene = game;
+        newGameController.setGameStage(game);
 
         GameController gameController = fxmlGameLoader.getController();
         newGameController.setGameController(gameController);

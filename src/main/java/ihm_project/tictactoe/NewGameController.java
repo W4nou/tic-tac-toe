@@ -18,6 +18,23 @@ public class NewGameController extends TicTacToeController {
         this.gameController = gameController;
     }
 
+    public void setGameStage(Stage gameStage) {
+        this.gameScene = gameStage;
+    }
+
+    public void setConfigurationGameStage(Stage configurationGameStage) {
+        this.configurationGameStage = configurationGameStage;
+    }
+
+    private void nameTextFieldSetup(TextField textfield, String defaultValue) {
+        textfield.textProperty().addListener((observable, oldValue, newValue) -> configurationController.reloadPseudo(textfield.getText(), textfield));
+
+        textfield.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (Boolean.TRUE.equals(!newValue) && textfield.getText().isEmpty()) {
+                textfield.setText(defaultValue);
+            }
+        });
+    }
 
     @FXML
     private TextField p1TextField;
@@ -29,13 +46,13 @@ public class NewGameController extends TicTacToeController {
     private CheckBox botCheckbox;
 
     @FXML
-    public Stage configurationGameScene;
+    private Stage configurationGameStage;
 
     @FXML
-    public Stage gameScene;
+    private Stage gameScene;
 
     @FXML
-    void initialize() {
+    private void initialize() {
         // bot CheckBox setup
         botCheckbox.setOnMouseClicked(selectedItemProperty -> {
             p2TextField.setDisable(botCheckbox.isSelected());
@@ -53,18 +70,8 @@ public class NewGameController extends TicTacToeController {
         nameTextFieldSetup(p2TextField, Player.P2_NAME_DEFAULT);
     }
 
-    private void nameTextFieldSetup(TextField textfield, String defaultValue) {
-        textfield.textProperty().addListener((observable, oldValue, newValue) -> configurationController.reloadPseudo(textfield.getText(), textfield));
-
-        textfield.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (Boolean.TRUE.equals(!newValue) && textfield.getText().isEmpty()) {
-                textfield.setText(defaultValue);
-            }
-        });
-    }
-
     @FXML
-    void onNewGameButtonClicked(ActionEvent event) {
+    private void onNewGameButtonClicked(ActionEvent event) {
         Button btn = (Button) event.getSource();
         Stage stage = (Stage) btn.getScene().getWindow();
         stage.hide();
@@ -84,7 +91,7 @@ public class NewGameController extends TicTacToeController {
     }
 
     @FXML
-    void onConfigurationGameButtonClicked() {
-        configurationGameScene.show();
+    private void onConfigurationGameButtonClicked() {
+        configurationGameStage.show();
     }
 }
