@@ -6,18 +6,9 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class NewGameController extends TicTacToeController {
-    private ConfigurationController configurationController;
-
-    protected void setConfigurationController(ConfigurationController configurationController) {
-        this.configurationController = configurationController;
-    }
-
-    protected void setConfigurationGameStage(Stage configurationGameStage) {
-        this.configurationGameStage = configurationGameStage;
-    }
 
     private void nameTextFieldSetup(TextField textfield, String defaultValue) {
-        textfield.textProperty().addListener((observable, oldValue, newValue) -> configurationController.reloadPseudo(textfield.getText(), textfield));
+        textfield.textProperty().addListener((observable, oldValue, newValue) -> TicTacToeController.getConfigurationController().reloadPseudo(textfield.getText(), textfield));
 
         textfield.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (Boolean.TRUE.equals(!newValue) && textfield.getText().isEmpty()) {
@@ -32,7 +23,7 @@ public class NewGameController extends TicTacToeController {
         p2TextField.setDisable(false);
 
         botCheckbox.setSelected(false);
-        configurationController.resetConfiguration();
+        TicTacToeController.getConfigurationController().resetConfiguration();
     }
 
     @FXML
@@ -43,12 +34,6 @@ public class NewGameController extends TicTacToeController {
 
     @FXML
     private CheckBox botCheckbox;
-
-    @FXML
-    private Stage configurationGameStage;
-
-    @FXML
-    private Stage gameScene;
 
     @FXML
     private void initialize() {
@@ -75,19 +60,19 @@ public class NewGameController extends TicTacToeController {
         Stage stage = (Stage) btn.getScene().getWindow();
         stage.hide();
 
-        Player p1 = configurationController.getP1();
-        Player p2 = configurationController.getP2();
+        Player p1 = TicTacToeController.getConfigurationController().getP1();
+        Player p2 = TicTacToeController.getConfigurationController().getP2();
 
-        boolean isRandomFirstPlayer = configurationController.getIsRandomFirstPlayer();
-        int boardSize = configurationController.getBoardSize();
+        boolean isRandomFirstPlayer = TicTacToeController.getConfigurationController().getIsRandomFirstPlayer();
+        int boardSize = TicTacToeController.getConfigurationController().getBoardSize();
 
         p2.setBot(botCheckbox.isSelected());
         getGameController().setGame(new Game(p1, p2, boardSize, isRandomFirstPlayer));
-        gameScene.show();
+        TicTacToeController.getGameStage().show();
     }
 
     @FXML
     private void onConfigurationGameButtonClicked() {
-        configurationGameStage.show();
+        TicTacToeController.getConfigurationGameStage().show();
     }
 }

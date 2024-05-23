@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.stage.Stage;
 
 import java.util.Comparator;
 import java.util.Map;
@@ -17,11 +16,6 @@ import java.util.Properties;
 public class EndGameController extends TicTacToeController {
 
     private Properties score;
-    private Stage endGameStage;
-
-    protected void setEndGameStage(Stage endGameStage) {
-        this.endGameStage = endGameStage;
-    }
 
     protected void refreshLeaderBoard() {
         // browse through score variable and append each key and value to the leaderBoardData
@@ -46,7 +40,7 @@ public class EndGameController extends TicTacToeController {
             incrementScore(name);
             gameResultLabel.setText(name + " \u00E0 gagn\u00E9 la partie");
         }
-        endGameStage.show();
+        TicTacToeController.getEndGameStage().show();
     }
 
     private void incrementScore(String name) {
@@ -101,13 +95,13 @@ public class EndGameController extends TicTacToeController {
 
     @Override
     public void onRetryButtonClicked() {
-        endGameStage.hide();
+        TicTacToeController.getEndGameStage().hide();
         super.onRetryButtonClicked();
     }
 
     @Override
     public void onNewGameButtonClicked() {
-        endGameStage.hide();
+        TicTacToeController.getEndGameStage().hide();
         super.onNewGameButtonClicked();
     }
 }

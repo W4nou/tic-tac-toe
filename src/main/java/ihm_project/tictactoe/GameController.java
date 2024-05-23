@@ -15,7 +15,6 @@ public class GameController extends TicTacToeController {
 
     private Game game;
     private final Random random = new Random();
-    private NewGameController newGameController;
     private Button[][] correspondingButtons;
 
     public void setGame(Game game) {
@@ -91,7 +90,7 @@ public class GameController extends TicTacToeController {
             GridPane boardGridPane = (GridPane) boardAnchorPane.getChildren().getFirst();
             changeAllButtons(false, boardGridPane);
 
-            endGameController.displayWinner(winnerName);
+            TicTacToeController.getEndGameController().displayWinner(winnerName);
         }
 
         if (game.whoseTurn().isBot()) {
@@ -145,11 +144,7 @@ public class GameController extends TicTacToeController {
         GridPane boardGridPane = (GridPane) boardAnchorPane.getChildren().getFirst();
         boardGridPane.getChildren().clear();
         boardAnchorPane.getChildren().remove(boardGridPane);
-        newGameController.resetNewGame();
-    }
-
-    public void setEndGameController(EndGameController endGameController) {
-        this.endGameController = endGameController;
+        TicTacToeController.getNewGameController().resetNewGame();
     }
 
     public void restartGame() {
@@ -164,11 +159,4 @@ public class GameController extends TicTacToeController {
 
     @FXML
     private Label gameStatusLabel;
-
-    @FXML
-    private EndGameController endGameController;
-
-    public void setNewGameController(NewGameController newGameController) {
-        this.newGameController = newGameController;
-    }
 }

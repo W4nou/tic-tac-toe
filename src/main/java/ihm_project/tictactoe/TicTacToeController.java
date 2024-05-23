@@ -57,6 +57,62 @@ public class TicTacToeController {
         return gameController;
     }
 
+    protected static void setConfigurationController(ConfigurationController configurationController) {
+        TicTacToeController.configurationController = configurationController;
+    }
+
+    protected static void setConfigurationGameStage(Stage configurationGameStage) {
+        TicTacToeController.configurationGameStage = configurationGameStage;
+    }
+
+    protected static void setNewGameController(NewGameController newGameController) {
+        TicTacToeController.newGameController = newGameController;
+    }
+
+    protected static void setEndGameController(EndGameController endGameController) {
+        TicTacToeController.endGameController = endGameController;
+    }
+
+    protected static void setEndGameStage(Stage endGameStage) {
+        TicTacToeController.endGameStage = endGameStage;
+    }
+
+    public static Stage getEndGameStage() {
+        return endGameStage;
+    }
+
+    protected static Stage getGameStage() {
+        return gameStage;
+    }
+
+    public static NewGameController getNewGameController() {
+        return newGameController;
+    }
+
+    public static EndGameController getEndGameController() {
+        return endGameController;
+    }
+
+    public static Stage getConfigurationGameStage() {
+        return configurationGameStage;
+    }
+
+    public static ConfigurationController getConfigurationController() {
+        return configurationController;
+    }
+
+    @FXML
+    private static Stage endGameStage;
+
+    @FXML
+    private static NewGameController newGameController;
+
+    @FXML
+    private static EndGameController endGameController;
+
+    @FXML
+    private static Stage configurationGameStage;
+
     @FXML
     private static Stage rulesStage;
 
@@ -71,6 +127,9 @@ public class TicTacToeController {
 
     @FXML
     private static GameController gameController;
+
+    @FXML
+    private static ConfigurationController configurationController;
 
     @FXML
     protected void onRulesButtonClicked() {

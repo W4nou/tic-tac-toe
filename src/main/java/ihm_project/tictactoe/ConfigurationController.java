@@ -10,7 +10,6 @@ import javafx.scene.effect.ColorInput;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.Objects;
@@ -146,9 +145,6 @@ public class ConfigurationController {
         p1 = new Player(p1ImageView.getImage(), p1ImageView.getEffect(), p1PseudoTextField.getText());
         p2 = new Player(p2ImageView.getImage(), p2ImageView.getEffect(), p2PseudoTextField.getText());
 
-        Button btn = (Button) event.getSource();
-        Stage stage = (Stage) btn.getScene().getWindow();
-
-        stage.close();
+        TicTacToeController.getConfigurationGameStage().close();
     }
 }

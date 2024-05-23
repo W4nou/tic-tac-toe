@@ -12,89 +12,100 @@ import java.io.IOException;
 public class TicTacToeApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-//        Creation of the 'newGame' window
-        FXMLLoader fxmlNewGameLoader = new FXMLLoader(TicTacToeApplication.class.getResource("newGame.fxml"));
-        Scene newGame = new Scene(fxmlNewGameLoader.load());
-        stage.setTitle("TicTacToe : Nouvelle Partie");
-        stage.setScene(newGame);
-        NewGameController newGameController = fxmlNewGameLoader.getController();
 
-        TicTacToeController.setNewGameStage((Stage) newGame.getWindow());
+
+//        Creation of the 'newGame' window
+
+        stage.setTitle("TicTacToe : Nouvelle Partie");
+        FXMLLoader fxmlNewGameLoader = new FXMLLoader(TicTacToeApplication.class.getResource("newGame.fxml"));
+
+        Scene newGame = new Scene(fxmlNewGameLoader.load());
+        stage.setScene(newGame);
 
 
 //        Creation of the 'configurationGame' window
 
-        Stage configurationGame = new Stage();
-        configurationGame.initOwner(stage);
-        configurationGame.initModality(Modality.APPLICATION_MODAL);
-        configurationGame.setTitle("TicTacToe : Configuration Partie");
+        Stage configurationGameStage = new Stage();
+        configurationGameStage.initOwner(stage);
+        configurationGameStage.initModality(Modality.APPLICATION_MODAL);
+
+        configurationGameStage.setTitle("TicTacToe : Configuration Partie");
         FXMLLoader fxmlConfigurationLoader = new FXMLLoader(TicTacToeApplication.class.getResource("configurationGame.fxml"));
+
         Scene configurationGameScene = new Scene(fxmlConfigurationLoader.load());
-        configurationGame.setScene(configurationGameScene);
-
-        ConfigurationController configurationController = fxmlConfigurationLoader.getController();
-        newGameController.setConfigurationController(configurationController);
-
-        newGameController.setConfigurationGameStage(configurationGame);
+        configurationGameStage.setScene(configurationGameScene);
 
 
 //        Creation of the 'rules' window
 
-        Stage rules = new Stage(StageStyle.UTILITY);
-        rules.initOwner(stage);
-        rules.setTitle("TicTacToe : R\u00E8gles");
+        Stage rulesStage = new Stage(StageStyle.UTILITY);
+        rulesStage.initOwner(stage);
+
+        rulesStage.setTitle("TicTacToe : R\u00E8gles");
         FXMLLoader fxmlRulesLoader = new FXMLLoader(TicTacToeApplication.class.getResource("rules.fxml"));
+
         Scene rulesScene = new Scene(fxmlRulesLoader.load());
-        rules.setScene(rulesScene);
-
-        TicTacToeController.setRulesStage(rules);
+        rulesStage.setScene(rulesScene);
 
 
-//        Creation of the 'about' window
+//        Creation of the 'aboutStage' window
 
-        Stage about = new Stage(StageStyle.UTILITY);
-        about.initOwner(stage);
-        about.setTitle("TicTacToe : \u00C0 propos");
+        Stage aboutStage = new Stage(StageStyle.UTILITY);
+        aboutStage.initOwner(stage);
+
+        aboutStage.setTitle("TicTacToe : \u00C0 propos");
         FXMLLoader fxmlAboutLoader = new FXMLLoader(TicTacToeApplication.class.getResource("about.fxml"));
-        Scene aboutScene = new Scene(fxmlAboutLoader.load());
-        about.setScene(aboutScene);
 
-        TicTacToeController.setAboutStage(about);
+        Scene aboutScene = new Scene(fxmlAboutLoader.load());
+        aboutStage.setScene(aboutScene);
 
 
 //        Creation of the 'game' window
 
-        Stage game = new Stage();
-        game.initOwner(stage);
-        game.setTitle("TicTacToe : Partie");
+        Stage gameStage = new Stage();
+        gameStage.initOwner(stage);
+
+        gameStage.setTitle("TicTacToe : Partie");
         FXMLLoader fxmlGameLoader = new FXMLLoader(TicTacToeApplication.class.getResource("game.fxml"));
+
         Scene gameScene = new Scene(fxmlGameLoader.load());
-        game.setScene(gameScene);
+        gameStage.setScene(gameScene);
 
-        TicTacToeController.setGameStage(game);
-
-        GameController gameController = fxmlGameLoader.getController();
-        TicTacToeController.setGameController(gameController);
-
-        gameController.setNewGameController(newGameController);
-
-        TicTacToeController.setGameController(gameController);
-        TicTacToeController.setGameStage(game);
 
 //        Creation of the 'endGame' window
 
-        Stage endGame = new Stage(StageStyle.UTILITY);
-        endGame.initOwner(stage);
-        endGame.initModality(Modality.APPLICATION_MODAL);
-        endGame.setTitle("TicTacToe : Fin de partie");
+        Stage endGameStage = new Stage(StageStyle.UTILITY);
+        endGameStage.initOwner(stage);
+        endGameStage.initModality(Modality.APPLICATION_MODAL);
+
+        endGameStage.setTitle("TicTacToe : Fin de partie");
         FXMLLoader fxmlEndGameLoader = new FXMLLoader(TicTacToeApplication.class.getResource("endGame.fxml"));
+
         Scene endGameScene = new Scene(fxmlEndGameLoader.load());
-        endGame.setScene(endGameScene);
+        endGameStage.setScene(endGameScene);
+
 
         EndGameController endGameController = fxmlEndGameLoader.getController();
-        gameController.setEndGameController(endGameController);
-        endGameController.setEndGameStage(endGame);
-        endGame.setOnCloseRequest(event -> endGameController.onExitButtonClicked());
+
+        TicTacToeController.setConfigurationController(fxmlConfigurationLoader.getController());
+        TicTacToeController.setConfigurationGameStage(configurationGameStage);
+
+        TicTacToeController.setGameController(fxmlGameLoader.getController());
+        TicTacToeController.setGameStage(gameStage);
+
+        TicTacToeController.setAboutStage(aboutStage);
+
+        TicTacToeController.setRulesStage(rulesStage);
+
+        TicTacToeController.setNewGameStage((Stage) newGame.getWindow());
+        TicTacToeController.setNewGameController(fxmlNewGameLoader.getController());
+
+        TicTacToeController.setEndGameController(endGameController);
+        TicTacToeController.setEndGameStage(endGameStage);
+
+
+//          Close the app when the cross is clicked in the end game menu
+        endGameStage.setOnCloseRequest(event -> endGameController.onExitButtonClicked());
 
         stage.show();
     }
