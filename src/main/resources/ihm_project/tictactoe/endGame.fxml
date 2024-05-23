@@ -28,8 +28,8 @@
       </Label>
       <TableView fx:id="leaderBoardTable" layoutX="15.0" layoutY="132.0" prefHeight="200.0" prefWidth="284.0">
          <columns>
-            <TableColumn fx:id="pseudoTableColumn" prefWidth="213.0" text="Pseudo" />
-            <TableColumn fx:id="scoreTableColumn" minWidth="0.0" prefWidth="70.0" resizable="false" text="Score" />
+            <TableColumn fx:id="pseudoTableColumn" editable="false" prefWidth="213.0" resizable="false" sortable="false" text="Pseudo" />
+            <TableColumn fx:id="scoreTableColumn" editable="false" minWidth="0.0" prefWidth="68.0" resizable="false" sortType="DESCENDING" text="Score" />
          </columns></TableView>
       <Label fx:id="leaderBoardLabel" layoutX="19.0" layoutY="104.0" text="Tableaux des scores">
          <font>

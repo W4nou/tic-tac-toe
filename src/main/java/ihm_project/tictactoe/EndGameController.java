@@ -1,6 +1,7 @@
 package ihm_project.tictactoe;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,50 +13,31 @@ import javafx.stage.Stage;
 
 import java.util.Comparator;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Properties;
 
 public class EndGameController extends TicTacToeController {
 
-    @FXML
+    private Properties score;
     private Stage endGameStage;
 
-    @FXML
-    private Label gameResultLabel;
-
-    @FXML
-    private TableView<Map.Entry<String, String>> leaderBoardTable;
-
-    @FXML
-    private TableColumn<Map.Entry<String, String>, String> pseudoTableColumn;
-
-    @FXML
-    private TableColumn<Map.Entry<String, String>, String> scoreTableColumn;
-
-    private Properties score;
-
-    @FXML
-    public void initialize() {
-        score = super.getScore();
-        pseudoTableColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKey()));
-        scoreTableColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue()));
-        refreshLeaderBoard();
+    protected void setEndGameStage(Stage endGameStage) {
+        this.endGameStage = endGameStage;
     }
 
-    private void refreshLeaderBoard() {
+    protected void refreshLeaderBoard() {
         ObservableList<Map.Entry<String, String>> data = FXCollections.observableArrayList();
         for (String pseudo : score.stringPropertyNames()) {
             data.add(Map.entry(pseudo, score.getProperty(pseudo)));
         }
-
         leaderBoardTable.setItems(data);
+        leaderBoardTable.getSortOrder().add(scoreTableColumn);
+
+        scoreTableColumn.setSortable(true);
+        leaderBoardTable.sort();
+        scoreTableColumn.setSortable(false);
     }
 
-    public void setEndGameStage(Stage endGameStage) {
-        this.endGameStage = endGameStage;
-    }
-
-    public void displayWinner(String name) {
+    protected void displayWinner(String name) {
         if (name == null) {
             gameResultLabel.setText("Il n'y a aucun gagnant \u00E0 cette partie");
         } else {
@@ -66,7 +48,8 @@ public class EndGameController extends TicTacToeController {
     }
 
     private void incrementScore(String name) {
-        if (name.equals(Player.P1_NAME_DEFAULT) || name.equals(Player.P2_NAME_DEFAULT)) {
+        if (name.equals(Player.P1_NAME_DEFAULT) || name.equals(Player.P2_NAME_DEFAULT) || name.equals(Player.BOT_NAME_DEFAULT)) {
+            // exclude the default names from the leaderBoard
             return;
         }
 
@@ -81,6 +64,31 @@ public class EndGameController extends TicTacToeController {
         refreshLeaderBoard();
 
         super.saveScore(score);
+    }
+
+
+    @FXML
+    private Label gameResultLabel;
+
+    @FXML
+    private TableView<Map.Entry<String, String>> leaderBoardTable;
+
+    @FXML
+    private TableColumn<Map.Entry<String, String>, String> pseudoTableColumn;
+
+    @FXML
+    private TableColumn<Map.Entry<String, String>, String> scoreTableColumn;
+
+    @FXML
+    public void initialize() {
+        score = super.getScore();
+        pseudoTableColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKey()));
+        scoreTableColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue()));
+        scoreTableColumn.setComparator(Comparator.comparingInt(Integer::parseInt));
+        pseudoTableColumn.setReorderable(false);
+        scoreTableColumn.setReorderable(false);
+
+        refreshLeaderBoard();
     }
 
     @FXML
