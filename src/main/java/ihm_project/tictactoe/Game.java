@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.function.IntFunction;
 
 public class Game {
+
     public static final int BOARD_SIZE_DEFAULT = 3;
     private final Player p1;
     private final Player p2;
@@ -11,7 +12,7 @@ public class Game {
     private final int size;
     private boolean isP1Turn;
 
-    public Game(Player p1, Player p2, int size, boolean isFirstPlayerRandom) {
+    protected Game(Player p1, Player p2, int size, boolean isFirstPlayerRandom) {
         this.p1 = p1;
         this.p2 = p2;
         this.size = size;
@@ -24,7 +25,7 @@ public class Game {
         }
     }
 
-    public Player winner() {
+    protected Player winner() {
         for (int column = 0; column < size; column++) {
             Player winner = checkColumnLine(column);
             if (winner != null) {
@@ -40,6 +41,24 @@ public class Game {
         }
 
         return checkDiagonalLine();
+    }
+
+    protected Player playedCell(int row, int column) {
+        Player player = whoseTurn();
+        board[column][row] = player;
+        isP1Turn = !isP1Turn;
+        return player;
+    }
+
+    protected boolean isBoardFull() {
+        for (int row = 0; row < size; row++) {
+            for (int column = 0; column < size; column++) {
+                if (board[row][column] == null) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     private Player checkLine(int end, IntFunction<Player> step) {
@@ -73,40 +92,19 @@ public class Game {
         return checkLine(size - 1, diag -> board[diag][size - 1 - diag]);
     }
 
-    public boolean canPlay(int row, int column) {
+    protected boolean isValidMove(int row, int column) {
         return board[column][row] == null;
     }
 
-    public Player played(int row, int column) {
-        if (!canPlay(row, column)) {
-            return null;
-        }
-        Player player = whoseTurn();
-        board[column][row] = player;
-        isP1Turn = !isP1Turn;
-        return player;
+    protected void restart() {
+        board = new Player[this.size][this.size];
     }
 
-    public Player whoseTurn() {
+    protected Player whoseTurn() {
         return isP1Turn ? p1 : p2;
     }
 
-    public int getSize() {
+    protected int getSize() {
         return size;
-    }
-
-    public boolean isBoardFull() {
-        for (int row = 0; row < size; row++) {
-            for (int column = 0; column < size; column++) {
-                if (board[row][column] == null) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    public void restart() {
-        board = new Player[this.size][this.size];
     }
 }

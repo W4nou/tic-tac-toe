@@ -77,16 +77,15 @@ public class GameController extends TicTacToeController {
     private void played(int row, int column) {
         Button clickedButton = getCorrespondingButton(row, column);
 
-        Player resultPlayer = game.played(row, column);
-
-        gameStatusLabel.setText("A " + game.whoseTurn().getName() + " de jouer\n");
+        Player resultPlayer = game.playedCell(row, column);
         updateButtonGraphic(resultPlayer, clickedButton);
+        gameStatusLabel.setText("A " + game.whoseTurn().getName() + " de jouer\n");
 
         Player winner = game.winner();
-        boolean boardFull = game.isBoardFull();
+        boolean boardIsFull = game.isBoardFull();
         String winnerName = (winner == null) ? null : winner.getName();
 
-        if (winner != null || boardFull) {
+        if (winner != null || boardIsFull) {
             gameStatusLabel.setText("La partie est termin\u00E9\n");
 
             GridPane boardGridPane = (GridPane) boardAnchorPane.getChildren().getFirst();
@@ -109,7 +108,7 @@ public class GameController extends TicTacToeController {
         while (true) {
             int randomRow = random.nextInt(game.getSize());
             int randomColumn = random.nextInt(game.getSize());
-            if (game.canPlay(randomRow, randomColumn)) {
+            if (game.isValidMove(randomRow, randomColumn)) {
                 return new int[]{randomRow, randomColumn};
             }
         }
