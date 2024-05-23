@@ -36,6 +36,15 @@ public class NewGameController extends TicTacToeController {
         });
     }
 
+    protected void resetNewGame() {
+        p1TextField.setText(Player.P1_NAME_DEFAULT);
+        p2TextField.setText(Player.P2_NAME_DEFAULT);
+        p2TextField.setDisable(false);
+
+        botCheckbox.setSelected(false);
+        configurationController.resetConfiguration();
+    }
+
     @FXML
     private TextField p1TextField;
 

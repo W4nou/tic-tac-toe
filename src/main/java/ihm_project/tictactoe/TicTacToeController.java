@@ -7,7 +7,9 @@ import java.io.*;
 import java.util.Properties;
 
 public class TicTacToeController {
+
     public static final String SCORE_LOCATION_DEFAULT = "src/main/resources/ihm_project/tictactoe/score.xml";
+
     @FXML
     public static Stage rulesScene;
 
@@ -42,7 +44,7 @@ public class TicTacToeController {
     public void onNewGameButtonClicked() {
         newGame.show();
         game.hide();
-        gameController.resetNewGame();
+        gameController.resetGame();
     }
 
     public Properties getScore() {

@@ -19,6 +19,8 @@ public class ConfigurationController {
     public static final String SHAPES_LOCATION_DEFAULT = "src/main/resources/ihm_project/tictactoe/shapes/";
     public static final String P1_SHAPE_DEFAULT = "emptyCircle.png";
     public static final String P2_SHAPE_DEFAULT = "fullCross.png";
+    public static final Color P2_COLOR_DEFAULT = Color.RED;
+    public static final Color P1_COLOR_DEFAULT = Color.BLUE;
 
     private Player p1;
     private Player p2;
@@ -64,8 +66,23 @@ public class ConfigurationController {
         }
     }
 
+    protected void resetConfiguration() {
+        p1ShapeComboBox.setValue(P1_SHAPE_DEFAULT);
+        p2ShapeComboBox.setValue(P2_SHAPE_DEFAULT);
+
+        p1ColorPicker.setValue(P1_COLOR_DEFAULT);
+        p2ColorPicker.setValue(P2_COLOR_DEFAULT);
+
+        updateShape(P1_SHAPE_DEFAULT,p1ImageView);
+        updateShape(P2_SHAPE_DEFAULT,p2ImageView);
+
+        boardSizeSlider.setValue(Game.BOARD_SIZE_DEFAULT);
+
+        randomFirstPlayerCheckBox.setSelected(false);
+    }
+
     protected boolean getIsRandomFirstPlayer() {
-        return isFirstPlayerRandom;
+        return randomFirstPlayerCheckBox.isSelected();
     }
 
     protected Player getP1() {
@@ -109,6 +126,9 @@ public class ConfigurationController {
     private ImageView p2ImageView;
 
     @FXML
+    private CheckBox randomFirstPlayerCheckBox;
+
+    @FXML
     private void initialize() {
         File[] shapes = folderContent();
         for (File shape : shapes) {
@@ -131,10 +151,5 @@ public class ConfigurationController {
         Stage stage = (Stage) btn.getScene().getWindow();
 
         stage.close();
-    }
-
-    @FXML
-    private void randomFirstPlayerChecked() {
-        isFirstPlayerRandom = !isFirstPlayerRandom;
     }
 }

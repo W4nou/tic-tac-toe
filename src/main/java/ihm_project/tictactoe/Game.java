@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.function.IntFunction;
 
 public class Game {
+    public static final int BOARD_SIZE_DEFAULT = 3;
     private final Player p1;
     private final Player p2;
     private Player[][] board;

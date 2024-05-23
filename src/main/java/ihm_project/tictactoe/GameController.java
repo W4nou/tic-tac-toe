@@ -12,19 +12,11 @@ import java.util.Objects;
 import java.util.Random;
 
 public class GameController extends TicTacToeController {
-    @FXML
-    private AnchorPane boardAnchorPane;
-
-    @FXML
-    private Label gameStatusLabel;
-
-    @FXML
-    private EndGameController endGameController;
 
     private Game game;
-    private Random random = new Random();
-
-    Button[][] correspondingButtons;
+    private final Random random = new Random();
+    private NewGameController newGameController;
+    private Button[][] correspondingButtons;
 
     public void setGame(Game game) {
         this.game = game;
@@ -150,10 +142,11 @@ public class GameController extends TicTacToeController {
         clickedButton.setDisable(true);
     }
 
-    public void resetNewGame() {
+    protected void resetGame() {
         GridPane boardGridPane = (GridPane) boardAnchorPane.getChildren().getFirst();
         boardGridPane.getChildren().clear();
         boardAnchorPane.getChildren().remove(boardGridPane);
+        newGameController.resetNewGame();
     }
 
     public void setEndGameController(EndGameController endGameController) {
@@ -165,5 +158,18 @@ public class GameController extends TicTacToeController {
         GridPane boardGridPane = (GridPane) boardAnchorPane.getChildren().getFirst();
         changeAllButtons(true, boardGridPane);
         game.restart();
+    }
+
+    @FXML
+    private AnchorPane boardAnchorPane;
+
+    @FXML
+    private Label gameStatusLabel;
+
+    @FXML
+    private EndGameController endGameController;
+
+    public void setNewGameController(NewGameController newGameController) {
+        this.newGameController = newGameController;
     }
 }
