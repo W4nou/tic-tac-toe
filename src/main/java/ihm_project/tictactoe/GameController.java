@@ -6,10 +6,10 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 import java.util.Objects;
+import java.util.Random;
 
 public class GameController extends TicTacToeController {
     @FXML
@@ -22,12 +22,16 @@ public class GameController extends TicTacToeController {
     private EndGameController endGameController;
 
     private Game game;
+    private Random random = new Random();
+
+    Button[][] correspondingButtons;
 
     public void setGame(Game game) {
         this.game = game;
         gameStatusLabel.setText("A " + game.whoseTurn().getName() + " de jouer\n");
 
         GridPane boardGridPane = new GridPane();
+
 
         for (int i = 0; i < game.getSize(); i++) {
             ColumnConstraints columnConstraints = new ColumnConstraints();
@@ -37,29 +41,30 @@ public class GameController extends TicTacToeController {
             boardGridPane.getRowConstraints().add(rowConstraints);
         }
 
+        correspondingButtons = new Button[game.getSize()][game.getSize()];
         for (int row = 0; row < boardGridPane.getRowCount(); row++) {
             for (int column = 0; column < boardGridPane.getColumnCount(); column++) {
-                Button cell = new Button();
+                Button buttonCell = new Button();
                 final int finalRow = row;
                 final int finalColumn = column;
-                cell.setOnMouseClicked(event -> played(finalRow, finalColumn, event));
+                buttonCell.setOnMouseClicked(event -> played(finalRow, finalColumn));
 
-                Pane pane = new Pane();
-                pane.getChildren().add(cell);
+                Pane paneCell = new Pane();
+                paneCell.getChildren().add(buttonCell);
 
-                GridPane.setHgrow(pane, Priority.ALWAYS);
-                GridPane.setVgrow(pane, Priority.ALWAYS);
+                GridPane.setHgrow(paneCell, Priority.ALWAYS);
+                GridPane.setVgrow(paneCell, Priority.ALWAYS);
 
-                pane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+                paneCell.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
 
                 // necessary in order to use the current layout to calculate the size of the needed button
                 Platform.runLater(() -> {
-                    cell.setPrefWidth(pane.getWidth());
-                    cell.setPrefHeight(pane.getHeight());
+                    buttonCell.setPrefWidth(paneCell.getWidth());
+                    buttonCell.setPrefHeight(paneCell.getHeight());
                 });
-
-                boardGridPane.add(pane,row,column);
+                correspondingButtons[column][row] = buttonCell;
+                boardGridPane.add(paneCell, row, column);
             }
         }
 
@@ -77,8 +82,8 @@ public class GameController extends TicTacToeController {
         boardAnchorPane.getScene().getStylesheets().add(css);
     }
 
-    private void played(int row, int column, MouseEvent event) {
-        Button clickedButton = (Button) event.getSource();
+    private void played(int row, int column) {
+        Button clickedButton = getCorrespondingButton(row, column);
 
         Player resultPlayer = game.played(row, column);
 
@@ -93,13 +98,32 @@ public class GameController extends TicTacToeController {
             gameStatusLabel.setText("La partie est termin\u00E9\n");
 
             GridPane boardGridPane = (GridPane) boardAnchorPane.getChildren().getFirst();
-            changeAllButtons(false,boardGridPane);
+            changeAllButtons(false, boardGridPane);
 
             endGameController.displayWinner(winnerName);
         }
+
+        if (game.whoseTurn().isBot()) {
+            int[] botMove = botPlay();
+            played(botMove[0], botMove[1]);
+        }
     }
 
-    private void changeAllButtons(boolean activation,Pane root) {
+    private Button getCorrespondingButton(int row, int column) {
+        return correspondingButtons[column][row];
+    }
+
+    public int[] botPlay() {
+        while (true) {
+            int randomRow = random.nextInt(game.getSize());
+            int randomColumn = random.nextInt(game.getSize());
+            if (game.canPlay(randomRow, randomColumn)) {
+                return new int[]{randomRow, randomColumn};
+            }
+        }
+    }
+
+    private void changeAllButtons(boolean activation, Pane root) {
         for (Node node : root.getChildrenUnmodifiable()) {
             if (node instanceof Button button) {
                 button.setDisable(!activation);
@@ -107,7 +131,7 @@ public class GameController extends TicTacToeController {
                     button.setGraphic(null);
                 }
             } else if (node instanceof Pane pane) {
-                changeAllButtons(activation,pane);
+                changeAllButtons(activation, pane);
             }
         }
     }
@@ -119,8 +143,8 @@ public class GameController extends TicTacToeController {
 
         // -6 is an arbitrary value inferior to two times the padding,
         // it seems to fix an issue with the columns and rows adjusting when icons are added
-        imageView.setFitHeight(clickedButton.getPrefHeight()-6);
-        imageView.setFitWidth(clickedButton.getPrefWidth()-6);
+        imageView.setFitHeight(clickedButton.getPrefHeight() - 6);
+        imageView.setFitWidth(clickedButton.getPrefWidth() - 6);
 
         clickedButton.setGraphic(imageView);
         clickedButton.setDisable(true);
@@ -132,14 +156,14 @@ public class GameController extends TicTacToeController {
         boardAnchorPane.getChildren().remove(boardGridPane);
     }
 
-    public void setEndGameController(EndGameController endGameController){
+    public void setEndGameController(EndGameController endGameController) {
         this.endGameController = endGameController;
     }
 
     public void restartGame() {
         gameStatusLabel.setText("A " + game.whoseTurn().getName() + " de jouer\n");
         GridPane boardGridPane = (GridPane) boardAnchorPane.getChildren().getFirst();
-        changeAllButtons(true,boardGridPane);
+        changeAllButtons(true, boardGridPane);
         game.restart();
     }
 }

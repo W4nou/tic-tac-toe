@@ -1,7 +1,7 @@
 package ihm_project.tictactoe;
 
 import java.util.Random;
-import java.util.function.Function;
+import java.util.function.IntFunction;
 
 public class Game {
     private final Player p1;
@@ -41,7 +41,7 @@ public class Game {
         return checkDiagonalLine();
     }
 
-    private Player checkLine(int end, Function<Integer, Player> step) {
+    private Player checkLine(int end, IntFunction<Player> step) {
         Player previousCell = step.apply(0);
         Player actualCell;
 

@@ -78,7 +78,7 @@ public class newGameController extends TicTacToeController {
     }
 
     @FXML
-    void onNewGameButtonClicked(ActionEvent event) throws Exception {
+    void onNewGameButtonClicked(ActionEvent event) {
         Button btn = (Button) event.getSource();
         Stage stage = (Stage) btn.getScene().getWindow();
         stage.hide();
@@ -89,6 +89,10 @@ public class newGameController extends TicTacToeController {
         boolean isRandomFirstPlayer = configurationController.getIsRandomFirstPlayer();
 
         boardSize = configurationController.getBoardSize();
+
+        if(ordinateurCheckBox.isSelected()){
+            p2.setBot(true);
+        }
 
         gameController.setGame(new Game(p1, p2, boardSize, isRandomFirstPlayer));
 
