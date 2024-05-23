@@ -24,7 +24,6 @@ public class ConfigurationController {
 
     private Player p1;
     private Player p2;
-    private boolean isFirstPlayerRandom = false;
 
     private File[] folderContent() {
         File shapesFolder = new File(ConfigurationController.SHAPES_LOCATION_DEFAULT);
