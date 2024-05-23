@@ -6,20 +6,10 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class NewGameController extends TicTacToeController {
-
     private ConfigurationController configurationController;
-    private GameController gameController;
 
     protected void setConfigurationController(ConfigurationController configurationController) {
         this.configurationController = configurationController;
-    }
-
-    protected void setGameController(GameController gameController) {
-        this.gameController = gameController;
-    }
-
-    protected void setGameStage(Stage gameStage) {
-        this.gameScene = gameStage;
     }
 
     protected void setConfigurationGameStage(Stage configurationGameStage) {
@@ -92,7 +82,7 @@ public class NewGameController extends TicTacToeController {
         int boardSize = configurationController.getBoardSize();
 
         p2.setBot(botCheckbox.isSelected());
-        gameController.setGame(new Game(p1, p2, boardSize, isRandomFirstPlayer));
+        getGameController().setGame(new Game(p1, p2, boardSize, isRandomFirstPlayer));
         gameScene.show();
     }
 

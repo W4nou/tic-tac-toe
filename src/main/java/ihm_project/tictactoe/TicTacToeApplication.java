@@ -13,14 +13,13 @@ public class TicTacToeApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 //        Creation of the 'newGame' window
-
         FXMLLoader fxmlNewGameLoader = new FXMLLoader(TicTacToeApplication.class.getResource("newGame.fxml"));
         Scene newGame = new Scene(fxmlNewGameLoader.load());
         stage.setTitle("TicTacToe : Nouvelle Partie");
         stage.setScene(newGame);
         NewGameController newGameController = fxmlNewGameLoader.getController();
 
-        TicTacToeController.newGame = (Stage) newGame.getWindow();
+        TicTacToeController.setNewGameStage((Stage) newGame.getWindow());
 
 
 //        Creation of the 'configurationGame' window
@@ -48,7 +47,7 @@ public class TicTacToeApplication extends Application {
         Scene rulesScene = new Scene(fxmlRulesLoader.load());
         rules.setScene(rulesScene);
 
-        TicTacToeController.rulesScene = rules;
+        TicTacToeController.setRulesStage(rules);
 
 
 //        Creation of the 'about' window
@@ -60,7 +59,7 @@ public class TicTacToeApplication extends Application {
         Scene aboutScene = new Scene(fxmlAboutLoader.load());
         about.setScene(aboutScene);
 
-        TicTacToeController.aboutScene = about;
+        TicTacToeController.setAboutStage(about);
 
 
 //        Creation of the 'game' window
@@ -72,15 +71,15 @@ public class TicTacToeApplication extends Application {
         Scene gameScene = new Scene(fxmlGameLoader.load());
         game.setScene(gameScene);
 
-        newGameController.setGameStage(game);
+        TicTacToeController.setGameStage(game);
 
         GameController gameController = fxmlGameLoader.getController();
-        newGameController.setGameController(gameController);
+        TicTacToeController.setGameController(gameController);
 
         gameController.setNewGameController(newGameController);
 
-        TicTacToeController.gameController = gameController;
-        TicTacToeController.game = game;
+        TicTacToeController.setGameController(gameController);
+        TicTacToeController.setGameStage(game);
 
 //        Creation of the 'endGame' window
 
