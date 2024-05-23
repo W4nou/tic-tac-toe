@@ -44,6 +44,16 @@ public class ConfigurationController {
         imageView.setEffect(effect);
     }
 
+    private Player initializePlayer(ComboBox<String> shapeComboBox, ImageView imageView, ColorPicker colorPicker, TextField pseudoTextField) {
+        updateShape(shapeComboBox.getValue(), imageView);
+        updateShapeColor(imageView, colorToBlend(colorPicker.getValue()));
+
+        shapeComboBox.setOnAction(event -> updateShape(shapeComboBox.getValue(), imageView));
+        colorPicker.setOnAction(event -> Platform.runLater(() -> updateShapeColor(imageView, colorToBlend(colorPicker.getValue()))));
+
+        return new Player(imageView.getImage(), imageView.getEffect(), pseudoTextField.getText());
+    }
+
     protected void reloadPseudo(String newName, TextField textfield) {
         if (Objects.equals(textfield.getId(), "p1TextField")) {
             p1PseudoTextField.setText(newName);
@@ -110,16 +120,6 @@ public class ConfigurationController {
 
         p1 = initializePlayer(p1ShapeComboBox, p1ImageView, p1ColorPicker, p1PseudoTextField);
         p2 = initializePlayer(p2ShapeComboBox, p2ImageView, p2ColorPicker, p2PseudoTextField);
-    }
-
-    private Player initializePlayer(ComboBox<String> shapeComboBox, ImageView imageView, ColorPicker colorPicker, TextField pseudoTextField) {
-        updateShape(shapeComboBox.getValue(), imageView);
-        updateShapeColor(imageView, colorToBlend(colorPicker.getValue()));
-
-        shapeComboBox.setOnAction(event -> updateShape(shapeComboBox.getValue(), imageView));
-        colorPicker.setOnAction(event -> Platform.runLater(() -> updateShapeColor(imageView, colorToBlend(colorPicker.getValue()))));
-
-        return new Player(imageView.getImage(), imageView.getEffect(), pseudoTextField.getText());
     }
 
     @FXML
