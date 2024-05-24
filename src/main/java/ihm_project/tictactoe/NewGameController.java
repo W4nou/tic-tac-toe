@@ -3,7 +3,6 @@ package ihm_project.tictactoe;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 
 public class NewGameController extends TicTacToeController {
 
@@ -56,9 +55,7 @@ public class NewGameController extends TicTacToeController {
 
     @FXML
     private void onNewGameButtonClicked(ActionEvent event) {
-        Button btn = (Button) event.getSource();
-        Stage stage = (Stage) btn.getScene().getWindow();
-        stage.hide();
+        TicTacToeController.getNewGameStage().hide();
 
         Player p1 = TicTacToeController.getConfigurationController().getP1();
         Player p2 = TicTacToeController.getConfigurationController().getP2();

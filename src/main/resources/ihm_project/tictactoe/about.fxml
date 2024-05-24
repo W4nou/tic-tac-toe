@@ -13,6 +13,6 @@
       </Label>
       <Label layoutX="27.0" layoutY="77.0" prefHeight="60.0" prefWidth="283.0" text="Cette application à été développé dans le cadre d'un projet pour la ressource R2.02." wrapText="true" />
       <Label layoutX="24.0" layoutY="140.0" prefHeight="60.0" prefWidth="283.0" text="Auteur : Erwan FOULON" wrapText="true" />
-      <Label layoutX="24.0" layoutY="200.0" prefHeight="60.0" prefWidth="283.0" text="Dernière version : 12/04/2024" wrapText="true" />
+      <Label layoutX="24.0" layoutY="200.0" prefHeight="60.0" prefWidth="283.0" text="Dernière version : 24/05/2024" wrapText="true" />
    </children>
 </Pane>

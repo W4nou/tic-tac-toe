@@ -10,10 +10,9 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class TicTacToeApplication extends Application {
+
     @Override
     public void start(Stage stage) throws IOException {
-
-
 //        Creation of the 'newGame' window
 
         stage.setTitle("TicTacToe : Nouvelle Partie");
@@ -84,6 +83,7 @@ public class TicTacToeApplication extends Application {
         Scene endGameScene = new Scene(fxmlEndGameLoader.load());
         endGameStage.setScene(endGameScene);
 
+//          Passing every needed controller and Stage needed through the TicTacToeController
 
         EndGameController endGameController = fxmlEndGameLoader.getController();
 
@@ -106,6 +106,7 @@ public class TicTacToeApplication extends Application {
 
 //          Close the app when the cross is clicked in the end game menu
         endGameStage.setOnCloseRequest(event -> endGameController.onExitButtonClicked());
+
 
         stage.show();
     }

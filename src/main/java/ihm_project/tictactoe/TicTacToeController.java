@@ -77,7 +77,7 @@ public class TicTacToeController {
         TicTacToeController.endGameStage = endGameStage;
     }
 
-    public static Stage getEndGameStage() {
+    protected static Stage getEndGameStage() {
         return endGameStage;
     }
 
@@ -85,20 +85,24 @@ public class TicTacToeController {
         return gameStage;
     }
 
-    public static NewGameController getNewGameController() {
+    protected static NewGameController getNewGameController() {
         return newGameController;
     }
 
-    public static EndGameController getEndGameController() {
+    protected static EndGameController getEndGameController() {
         return endGameController;
     }
 
-    public static Stage getConfigurationGameStage() {
+    protected static Stage getConfigurationGameStage() {
         return configurationGameStage;
     }
 
-    public static ConfigurationController getConfigurationController() {
+    protected static ConfigurationController getConfigurationController() {
         return configurationController;
+    }
+
+    protected static Stage getNewGameStage() {
+        return newGameStage;
     }
 
     @FXML
