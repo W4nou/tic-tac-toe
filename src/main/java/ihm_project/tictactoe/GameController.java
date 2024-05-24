@@ -13,6 +13,7 @@ import java.util.Random;
 
 public class GameController extends TicTacToeController {
 
+    public static final String WINNING_LINE_COLOR_DEFAULT = "#a6ffa6";
     private Game game;
     private final Random random = new Random();
     private Button[][] correspondingButtons;
@@ -86,6 +87,7 @@ public class GameController extends TicTacToeController {
 
         if (winner != null || boardIsFull) {
             gameStatusLabel.setText("La partie est termin\u00E9\n");
+            displayWinnerLine(game.getWinnerLine());
 
             GridPane boardGridPane = (GridPane) boardAnchorPane.getChildren().getFirst();
             changeAllButtons(false, boardGridPane);
@@ -119,6 +121,7 @@ public class GameController extends TicTacToeController {
                 button.setDisable(!activation);
                 if (button.getGraphic() instanceof ImageView && activation) {
                     button.setGraphic(null);
+                    button.setStyle("-fx-background-color: none;");
                 }
             } else if (node instanceof Pane pane) {
                 changeAllButtons(activation, pane);
@@ -147,11 +150,20 @@ public class GameController extends TicTacToeController {
         TicTacToeController.getNewGameController().resetNewGame();
     }
 
-    public void restartGame() {
+    protected void restartGame() {
         gameStatusLabel.setText("A " + game.whoseTurn().getName() + " de jouer\n");
         GridPane boardGridPane = (GridPane) boardAnchorPane.getChildren().getFirst();
         changeAllButtons(true, boardGridPane);
         game.restart();
+    }
+
+    private void displayWinnerLine(int[][] line) {
+        for(int[] cell : line) {
+            int row = cell[0];
+            int column = cell[1];
+            Button button = getCorrespondingButton(row,column);
+            button.setStyle("-fx-background-color: " + WINNING_LINE_COLOR_DEFAULT + ";");
+        }
     }
 
     @FXML

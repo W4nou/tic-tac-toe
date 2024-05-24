@@ -107,4 +107,43 @@ public class Game {
     protected int getSize() {
         return size;
     }
+
+    protected int[][] getWinnerLine() {
+        // find if it's a row / line or diagonale and then return the appropriate reconstituted
+        for (int column = 0; column < size; column++) {
+            Player winner = checkColumnLine(column);
+            if (winner != null) {
+                return reconstituteLine(column,size - 1, false);
+            }
+        }
+
+        for (int row = 0; row < size; row++) {
+            Player winner = checkRowLine(row);
+            if (winner != null) {
+                return reconstituteLine(row,size - 1, true);
+            }
+        }
+
+        Player winner = checkLine(size - 1, diag -> board[diag][size - 1 - diag]);
+        if (winner != null) {
+            return reconstituteDiagonaleLine(size - 1, false);
+        }
+        return reconstituteDiagonaleLine(size - 1, true);
+    }
+
+    private int[][] reconstituteDiagonaleLine(int end, boolean isMainDiagonal) {
+        int[][] line = new int[size][2];
+        for (int i = 0; i <= end; i++) {
+            line[i] = isMainDiagonal ? new int[]{i, i} : new int[]{i, size - 1 - i};
+        }
+        return line;
+    }
+
+    private int[][] reconstituteLine(int start, int end, boolean isRow) {
+        int[][] line = new int[size][2];
+        for (int i = 0; i <= end; i++) {
+            line[i] = isRow ? new int[]{start, i} : new int[]{i, start};
+        }
+        return line;
+    }
 }

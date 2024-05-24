@@ -105,6 +105,7 @@ public class TicTacToeApplication extends Application {
 
 
 //          Close the app when the cross is clicked in the end game menu
+
         endGameStage.setOnCloseRequest(event -> endGameController.onExitButtonClicked());
 
 
