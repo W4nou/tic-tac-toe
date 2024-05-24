@@ -1,7 +1,5 @@
 package ihm_project.tictactoe;
 
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.effect.Blend;
@@ -49,7 +47,7 @@ public class ConfigurationController {
         updateShapeColor(imageView, colorToBlend(colorPicker.getValue()));
 
         shapeComboBox.setOnAction(event -> updateShape(shapeComboBox.getValue(), imageView));
-        colorPicker.setOnAction(event -> Platform.runLater(() -> updateShapeColor(imageView, colorToBlend(colorPicker.getValue()))));
+        colorPicker.setOnAction(event -> updateShapeColor(imageView, colorToBlend(colorPicker.getValue())));
 
         return new Player(imageView.getImage(), imageView.getEffect(), pseudoTextField.getText());
     }
@@ -141,7 +139,7 @@ public class ConfigurationController {
     }
 
     @FXML
-    private void onConfirmerButtonClicked(ActionEvent event) {
+    private void onConfirmerButtonClicked() {
         p1 = new Player(p1ImageView.getImage(), p1ImageView.getEffect(), p1PseudoTextField.getText());
         p2 = new Player(p2ImageView.getImage(), p2ImageView.getEffect(), p2PseudoTextField.getText());
 
