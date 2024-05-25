@@ -31,6 +31,7 @@ public class TicTacToeController {
 
     protected void saveScore(Properties score) {
         try {
+            // saving the score in the same folder as the .jar
             String jarLocation = new File(TicTacToeController.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent();
             String filePath = jarLocation + File.separator + SCORE_LOCATION_DEFAULT;
 

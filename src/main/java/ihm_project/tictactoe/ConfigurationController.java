@@ -8,18 +8,22 @@ import javafx.scene.effect.ColorInput;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 public class ConfigurationController {
-    public static final String SHAPES_LOCATION_DEFAULT = "/ihm_project/tictactoe/shapes";
+    public static final String SHAPES_LOCATION_DEFAULT = "ihm_project/tictactoe/shapes";
     public static final String P1_SHAPE_DEFAULT = "emptyCircle.png";
     public static final String P2_SHAPE_DEFAULT = "fullCross.png";
     public static final Color P2_COLOR_DEFAULT = Color.RED;
@@ -28,15 +32,48 @@ public class ConfigurationController {
     private Player p1;
     private Player p2;
 
+    Logger loggerConfigurationController = Logger.getLogger(getClass().getName());
+
     // not my original approach for this since I had a big trouble with getResource and the JAR compilation
+    // this piece of code is not looking good but at least is working inside both IDE and JAR files
     private List<String> folderContent() {
+        List<String> filenames = new ArrayList<>();
         try {
-            Path path = Paths.get(Objects.requireNonNull(getClass().getResource(SHAPES_LOCATION_DEFAULT)).toURI());
-            try (Stream<Path> paths = Files.walk(path)) {
-                return paths.filter(Files::isRegularFile).map(Path::getFileName).map(Path::toString).toList();
+            URL dirURL = getClass().getClassLoader().getResource(SHAPES_LOCATION_DEFAULT);
+            // identify if the file is executed in an IDE or a JAR
+            if (dirURL != null && dirURL.getProtocol().equals("file")) {
+                return getFilenamesFromIDE(dirURL);
             }
+            assert dirURL != null;
+            getFilenamesFromJAR(dirURL, filenames);
         } catch (Exception e) {
-            return new ArrayList<>();
+            loggerConfigurationController.severe("Impossible to read content of " + SHAPES_LOCATION_DEFAULT);
+        }
+        return filenames;
+    }
+
+    private List<String> getFilenamesFromIDE(URL dirURL){
+        try (Stream<Path> paths = Files.list(Paths.get(dirURL.toURI()))) {
+            return paths.filter(Files::isRegularFile).map(Path::getFileName).map(Path::toString).toList();
+        }
+        catch (Exception e){
+            loggerConfigurationController.severe("Error while reading the content of : " + SHAPES_LOCATION_DEFAULT);
+        }
+        return Collections.emptyList();
+    }
+
+    private void getFilenamesFromJAR(URL dirURL, List<String> filenames) throws IOException {
+        assert dirURL != null;
+        String jarPath = dirURL.getPath().substring(5, dirURL.getPath().indexOf("!")); //strip out only the JAR file
+        try (JarFile jar = new JarFile(URLDecoder.decode(jarPath, StandardCharsets.UTF_8))) {
+            Enumeration<JarEntry> entries = jar.entries(); //gives ALL entries in jar
+            while (entries.hasMoreElements()) {
+                String name = entries.nextElement().getName();
+                if (name.startsWith(SHAPES_LOCATION_DEFAULT + "/") && !name.equals(SHAPES_LOCATION_DEFAULT + "/")) { //filter according to the path
+                    String entry = name.substring(SHAPES_LOCATION_DEFAULT.length() + 1);
+                    filenames.add(entry);
+                }
+            }
         }
     }
 
@@ -46,7 +83,7 @@ public class ConfigurationController {
     }
 
     private void updateShape(String shape, ImageView imageView) {
-        InputStream stream = getClass().getResourceAsStream(SHAPES_LOCATION_DEFAULT + "/" + shape);
+        InputStream stream = getClass().getResourceAsStream("/" + SHAPES_LOCATION_DEFAULT + "/" + shape);
         assert stream != null;
         Image image = new Image(stream);
         imageView.setImage(image);
@@ -83,8 +120,8 @@ public class ConfigurationController {
         p1ColorPicker.setValue(P1_COLOR_DEFAULT);
         p2ColorPicker.setValue(P2_COLOR_DEFAULT);
 
-        updateShape(P1_SHAPE_DEFAULT,p1ImageView);
-        updateShape(P2_SHAPE_DEFAULT,p2ImageView);
+        updateShape(P1_SHAPE_DEFAULT, p1ImageView);
+        updateShape(P2_SHAPE_DEFAULT, p2ImageView);
 
         boardSizeSlider.setValue(Game.BOARD_SIZE_DEFAULT);
 
