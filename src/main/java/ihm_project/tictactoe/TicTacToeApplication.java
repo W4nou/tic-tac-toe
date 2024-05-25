@@ -2,6 +2,7 @@ package ihm_project.tictactoe;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -16,6 +17,7 @@ public class TicTacToeApplication extends Application {
 //        Creation of the 'newGame' window
 
         stage.setTitle("TicTacToe : Nouvelle Partie");
+        stage.setResizable(false);
         FXMLLoader fxmlNewGameLoader = new FXMLLoader(TicTacToeApplication.class.getResource("newGame.fxml"));
 
         Scene newGame = new Scene(fxmlNewGameLoader.load());
@@ -27,6 +29,7 @@ public class TicTacToeApplication extends Application {
         Stage configurationGameStage = new Stage();
         configurationGameStage.initOwner(stage);
         configurationGameStage.initModality(Modality.APPLICATION_MODAL);
+        configurationGameStage.setResizable(false);
 
         configurationGameStage.setTitle("TicTacToe : Configuration Partie");
         FXMLLoader fxmlConfigurationLoader = new FXMLLoader(TicTacToeApplication.class.getResource("configurationGame.fxml"));
@@ -38,6 +41,7 @@ public class TicTacToeApplication extends Application {
 //        Creation of the 'rules' window
 
         Stage rulesStage = new Stage(StageStyle.UTILITY);
+        rulesStage.setResizable(false);
         rulesStage.initOwner(stage);
 
         rulesStage.setTitle("TicTacToe : R\u00E8gles");
@@ -50,6 +54,7 @@ public class TicTacToeApplication extends Application {
 //        Creation of the 'aboutStage' window
 
         Stage aboutStage = new Stage(StageStyle.UTILITY);
+        aboutStage.setResizable(false);
         aboutStage.initOwner(stage);
 
         aboutStage.setTitle("TicTacToe : \u00C0 propos");
@@ -64,7 +69,9 @@ public class TicTacToeApplication extends Application {
         Stage gameStage = new Stage();
         gameStage.initOwner(stage);
 
+
         gameStage.setTitle("TicTacToe : Partie");
+        gameStage.setResizable(false);
         FXMLLoader fxmlGameLoader = new FXMLLoader(TicTacToeApplication.class.getResource("game.fxml"));
 
         Scene gameScene = new Scene(fxmlGameLoader.load());
@@ -73,9 +80,10 @@ public class TicTacToeApplication extends Application {
 
 //        Creation of the 'endGame' window
 
-        Stage endGameStage = new Stage(StageStyle.UTILITY);
+        Stage endGameStage = new Stage();
         endGameStage.initOwner(stage);
         endGameStage.initModality(Modality.APPLICATION_MODAL);
+        endGameStage.setResizable(false);
 
         endGameStage.setTitle("TicTacToe : Fin de partie");
         FXMLLoader fxmlEndGameLoader = new FXMLLoader(TicTacToeApplication.class.getResource("endGame.fxml"));
