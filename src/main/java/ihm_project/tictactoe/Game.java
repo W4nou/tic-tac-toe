@@ -11,12 +11,14 @@ public class Game {
     private Player[][] board;
     private final int size;
     private boolean isP1Turn;
+    private int[][] winningLine;
 
     protected Game(Player p1, Player p2, int size, boolean isFirstPlayerRandom) {
         this.p1 = p1;
         this.p2 = p2;
         this.size = size;
         board = new Player[this.size][this.size];
+        winningLine = new int[size][2];
 
         if (isFirstPlayerRandom) {
             isP1Turn = new Random().nextBoolean();
@@ -29,6 +31,7 @@ public class Game {
         for (int column = 0; column < size; column++) {
             Player winner = checkColumnLine(column);
             if (winner != null) {
+                winningLine = reconstituteLine(column, false);
                 return winner;
             }
         }
@@ -36,6 +39,7 @@ public class Game {
         for (int row = 0; row < size; row++) {
             Player winner = checkRowLine(row);
             if (winner != null) {
+                winningLine = reconstituteLine(row, true);
                 return winner;
             }
         }
@@ -86,10 +90,16 @@ public class Game {
     private Player checkDiagonalLine() {
         Player winner = checkLine(size - 1, diag -> board[diag][diag]);
         if (winner != null) {
+            winningLine = reconstituteDiagonaleLine(true);
             return winner;
         }
 
-        return checkLine(size - 1, diag -> board[diag][size - 1 - diag]);
+        winner = checkLine(size - 1, diag -> board[diag][size - 1 - diag]);
+        if (winner == null) {
+            return null;
+        }
+        winningLine = reconstituteDiagonaleLine(false);
+        return winner;
     }
 
     protected boolean isValidMove(int row, int column) {
@@ -108,41 +118,22 @@ public class Game {
         return size;
     }
 
-    protected int[][] getWinnerLine() {
-        // find if it's a row / line or diagonale and then return the appropriate reconstituted
-        for (int column = 0; column < size; column++) {
-            Player winner = checkColumnLine(column);
-            if (winner != null) {
-                return reconstituteLine(column,size - 1, false);
-            }
-        }
-
-        for (int row = 0; row < size; row++) {
-            Player winner = checkRowLine(row);
-            if (winner != null) {
-                return reconstituteLine(row,size - 1, true);
-            }
-        }
-
-        Player winner = checkLine(size - 1, diag -> board[diag][size - 1 - diag]);
-        if (winner != null) {
-            return reconstituteDiagonaleLine(size - 1, false);
-        }
-        return reconstituteDiagonaleLine(size - 1, true);
+    protected int[][] getWinningLine() {
+        return winningLine;
     }
 
-    private int[][] reconstituteDiagonaleLine(int end, boolean isMainDiagonal) {
+    private int[][] reconstituteDiagonaleLine(boolean isMainDiagonal) {
         int[][] line = new int[size][2];
-        for (int i = 0; i <= end; i++) {
+        for (int i = 0; i <= size-1; i++) {
             line[i] = isMainDiagonal ? new int[]{i, i} : new int[]{i, size - 1 - i};
         }
         return line;
     }
 
-    private int[][] reconstituteLine(int start, int end, boolean isRow) {
+    private int[][] reconstituteLine(int index, boolean isRow) {
         int[][] line = new int[size][2];
-        for (int i = 0; i <= end; i++) {
-            line[i] = isRow ? new int[]{start, i} : new int[]{i, start};
+        for (int i = 0; i <= size-1; i++) {
+            line[i] = isRow ? new int[]{index, i} : new int[]{i, index};
         }
         return line;
     }

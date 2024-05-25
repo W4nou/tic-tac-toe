@@ -87,7 +87,7 @@ public class GameController extends TicTacToeController {
 
         if (winner != null || boardIsFull) {
             gameStatusLabel.setText("La partie est termin\u00E9\n");
-            displayWinnerLine(game.getWinnerLine());
+            displayWinnerLine(game.getWinningLine());
 
             GridPane boardGridPane = (GridPane) boardAnchorPane.getChildren().getFirst();
             changeAllButtons(false, boardGridPane);
