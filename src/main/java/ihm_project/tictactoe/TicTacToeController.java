@@ -9,16 +9,20 @@ import java.util.logging.Logger;
 
 public class TicTacToeController {
 
-    public static final String SCORE_LOCATION_DEFAULT = "src/main/resources/ihm_project/tictactoe/score.xml";
-
+    public static final String SCORE_LOCATION_DEFAULT = "score.xml";
     // use of a logger instead of a system.err.println() suggested by Sonar Lint for better maintainability
     Logger loggerTicTactToeController = Logger.getLogger(getClass().getName());
 
     protected Properties getScore() {
         Properties score = new Properties();
-        try (InputStream scoreInputStream = new FileInputStream(SCORE_LOCATION_DEFAULT)) {
-            score.loadFromXML(scoreInputStream);
-        } catch (IOException e) {
+        try {
+            String jarLocation = new File(TicTacToeController.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent();
+            String filePath = jarLocation + File.separator + SCORE_LOCATION_DEFAULT;
+
+            try (InputStream scoreInputStream = new FileInputStream(filePath)) {
+                score.loadFromXML(scoreInputStream);
+            }
+        } catch (Exception e) {
             loggerTicTactToeController.info("Impossible to open score.xml, creating a new one");
             saveScore(score);
         }
@@ -26,8 +30,13 @@ public class TicTacToeController {
     }
 
     protected void saveScore(Properties score) {
-        try (OutputStream scoreOutputStream = new FileOutputStream(SCORE_LOCATION_DEFAULT)) {
-            score.storeToXML(scoreOutputStream, "");
+        try {
+            String jarLocation = new File(TicTacToeController.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent();
+            String filePath = jarLocation + File.separator + SCORE_LOCATION_DEFAULT;
+
+            try (OutputStream scoreOutputStream = new FileOutputStream(filePath)) {
+                score.storeToXML(scoreOutputStream, "");
+            }
         } catch (Exception e) {
             loggerTicTactToeController.info("Impossible to save score.xml");
         }

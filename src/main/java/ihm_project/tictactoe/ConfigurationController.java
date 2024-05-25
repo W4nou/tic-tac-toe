@@ -9,11 +9,17 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
-import java.io.File;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 public class ConfigurationController {
-    public static final String SHAPES_LOCATION_DEFAULT = "src/main/resources/ihm_project/tictactoe/shapes/";
+    public static final String SHAPES_LOCATION_DEFAULT = "/ihm_project/tictactoe/shapes";
     public static final String P1_SHAPE_DEFAULT = "emptyCircle.png";
     public static final String P2_SHAPE_DEFAULT = "fullCross.png";
     public static final Color P2_COLOR_DEFAULT = Color.RED;
@@ -22,9 +28,16 @@ public class ConfigurationController {
     private Player p1;
     private Player p2;
 
-    private File[] folderContent() {
-        File shapesFolder = new File(ConfigurationController.SHAPES_LOCATION_DEFAULT);
-        return shapesFolder.getAbsoluteFile().listFiles();
+    // not my original approach for this since I had a big trouble with getResource and the JAR compilation
+    private List<String> folderContent() {
+        try {
+            Path path = Paths.get(Objects.requireNonNull(getClass().getResource(SHAPES_LOCATION_DEFAULT)).toURI());
+            try (Stream<Path> paths = Files.walk(path)) {
+                return paths.filter(Files::isRegularFile).map(Path::getFileName).map(Path::toString).toList();
+            }
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
     }
 
     private Blend colorToBlend(Color color) {
@@ -33,9 +46,10 @@ public class ConfigurationController {
     }
 
     private void updateShape(String shape, ImageView imageView) {
-        File previewFile = new File(SHAPES_LOCATION_DEFAULT + shape);
-        Image previewImage = new Image(previewFile.toURI().toString());
-        imageView.setImage(previewImage);
+        InputStream stream = getClass().getResourceAsStream(SHAPES_LOCATION_DEFAULT + "/" + shape);
+        assert stream != null;
+        Image image = new Image(stream);
+        imageView.setImage(image);
     }
 
     private void updateShapeColor(ImageView imageView, Blend effect) {
@@ -126,10 +140,10 @@ public class ConfigurationController {
 
     @FXML
     private void initialize() {
-        File[] shapes = folderContent();
-        for (File shape : shapes) {
-            p1ShapeComboBox.getItems().add(shape.getName());
-            p2ShapeComboBox.getItems().add(shape.getName());
+        List<String> shapes = folderContent();
+        for (String shape : shapes) {
+            p1ShapeComboBox.getItems().add(shape);
+            p2ShapeComboBox.getItems().add(shape);
         }
         p1ShapeComboBox.setValue(P1_SHAPE_DEFAULT);
         p2ShapeComboBox.setValue(P2_SHAPE_DEFAULT);

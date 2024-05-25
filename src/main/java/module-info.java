@@ -4,6 +4,5 @@ module ihm_projet.tictactoe {
     requires java.logging;
 
 
-    opens ihm_project.tictactoe to javafx.fxml;
-    exports ihm_project.tictactoe;
+    opens ihm_project.tictactoe;
 }
