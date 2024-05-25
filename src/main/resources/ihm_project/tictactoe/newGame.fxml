@@ -17,7 +17,6 @@
         <menus>
           <Menu mnemonicParsing="false" text="Partie">
             <items>
-                  <MenuItem fx:id="newGameMenuButton" mnemonicParsing="false" text="Reprendre une Partie" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Aide">
