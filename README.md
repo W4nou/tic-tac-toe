@@ -57,6 +57,6 @@ A minor and display-only issue that does not update the preview "ImageView" of t
 
 I decided to name all my files, variables, methods, and classes in English, as well as the comments, to maintain consistency with Java and JavaFX naming conventions. I believe this increases code readability. I also decided to use inheritance from the TicTacToeController class to limit code duplication and improve project maintainability.
 
-For version control, I used GitHub and plan to publish this project once completed to showcase my skills and support my applications for apprenticeship positions. I used SceneBuilder to generate all the application's windows. However, the game grid was generated procedurally because it depends on the configuration parameters entered by the user.
+I used SceneBuilder to generate all the application's windows. However, the game grid was generated procedurally because it depends on the configuration parameters entered by the user.
 
 I used the protected scope for all functions and methods used within the application, and private for those used only within the same class, including attributes. The public scope was used only for constants to simplify application configuration and facilitate modification of default values.
